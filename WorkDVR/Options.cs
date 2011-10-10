@@ -18,7 +18,42 @@ namespace WorkDVR
 
         private void Options_Load(object sender, EventArgs e)
         {
+            // not resizable form
+            this.MinimumSize = new Size(Size.Width, Size.Height);
+            this.MaximumSize = new Size(Size.Width, Size.Height);
+        }
 
+        private void storeFolderButton_Click(object sender, EventArgs e)
+        {
+            if (storeFolderDialog.ShowDialog() == DialogResult.OK)
+            {
+                storeFolderTextBox.Text = storeFolderDialog.SelectedPath;
+            }
+        }
+
+        private void Options_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                captureFrameEveryTextBox.Text = ConfigManager.GetProperty(ConfigManager.captureFrameIntervalProperty);
+                storeFolderTextBox.Text = ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty);
+                keepMbRecodingsTextBox.Text = ConfigManager.GetProperty(ConfigManager.keepMbRecodingsProperty);
+            }
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            ConfigManager.SetProperty(ConfigManager.captureFrameIntervalProperty, captureFrameEveryTextBox.Text);
+            ConfigManager.SetProperty(ConfigManager.framesStoreFolderProperty, storeFolderTextBox.Text);
+            ConfigManager.SetProperty(ConfigManager.keepMbRecodingsProperty, keepMbRecodingsTextBox.Text);
+            ConfigManager.Save();
+
+            this.Hide();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

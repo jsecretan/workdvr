@@ -8,7 +8,7 @@ namespace WorkDVR
     static class Program
     {
 
-        private static Form1 playbackWindow;
+        private static MainForm playbackWindow;
 
         /// <summary>
         /// The main entry point for the application.
@@ -20,7 +20,7 @@ namespace WorkDVR
             Application.SetCompatibleTextRenderingDefault(false);
 
 
-            playbackWindow = new Form1();
+            playbackWindow = new MainForm();
 
             Application.Run();
         }

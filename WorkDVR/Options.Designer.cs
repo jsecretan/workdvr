@@ -28,114 +28,162 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label3 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.captureFrameEveryLabel = new System.Windows.Forms.Label();
+            this.secondsLabel = new System.Windows.Forms.Label();
+            this.captureFrameEveryTextBox = new System.Windows.Forms.TextBox();
+            this.storeFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.storeFolderLabel = new System.Windows.Forms.Label();
+            this.runOnStartupCheckBox = new System.Windows.Forms.CheckBox();
+            this.keepLabel = new System.Windows.Forms.Label();
+            this.keepMbRecodingsTextBox = new System.Windows.Forms.TextBox();
+            this.mbRecordingsLabel = new System.Windows.Forms.Label();
+            this.deleteStoredButton = new System.Windows.Forms.Button();
+            this.storeFolderTextBox = new System.Windows.Forms.TextBox();
+            this.storeFolderButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // captureFrameEveryLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Capture frame every";
+            this.captureFrameEveryLabel.AutoSize = true;
+            this.captureFrameEveryLabel.Location = new System.Drawing.Point(12, 55);
+            this.captureFrameEveryLabel.Name = "captureFrameEveryLabel";
+            this.captureFrameEveryLabel.Size = new System.Drawing.Size(102, 13);
+            this.captureFrameEveryLabel.TabIndex = 1;
+            this.captureFrameEveryLabel.Text = "Capture frame every";
             // 
-            // label2
+            // secondsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(168, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "seconds";
+            this.secondsLabel.AutoSize = true;
+            this.secondsLabel.Location = new System.Drawing.Point(177, 55);
+            this.secondsLabel.Name = "secondsLabel";
+            this.secondsLabel.Size = new System.Drawing.Size(47, 13);
+            this.secondsLabel.TabIndex = 3;
+            this.secondsLabel.Text = "seconds";
             // 
-            // textBox1
+            // captureFrameEveryTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(117, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(44, 20);
-            this.textBox1.TabIndex = 2;
+            this.captureFrameEveryTextBox.Location = new System.Drawing.Point(123, 52);
+            this.captureFrameEveryTextBox.Name = "captureFrameEveryTextBox";
+            this.captureFrameEveryTextBox.Size = new System.Drawing.Size(44, 20);
+            this.captureFrameEveryTextBox.TabIndex = 2;
             // 
-            // label3
+            // storeFolderLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Store captured frames in";
+            this.storeFolderLabel.AutoSize = true;
+            this.storeFolderLabel.Location = new System.Drawing.Point(12, 90);
+            this.storeFolderLabel.Name = "storeFolderLabel";
+            this.storeFolderLabel.Size = new System.Drawing.Size(154, 13);
+            this.storeFolderLabel.TabIndex = 4;
+            this.storeFolderLabel.Text = "Store captured frames in folder:";
             // 
-            // checkBox1
+            // runOnStartupCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(17, 112);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox1.Size = new System.Drawing.Size(96, 17);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Run on startup";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.runOnStartupCheckBox.AutoSize = true;
+            this.runOnStartupCheckBox.Location = new System.Drawing.Point(15, 20);
+            this.runOnStartupCheckBox.Name = "runOnStartupCheckBox";
+            this.runOnStartupCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.runOnStartupCheckBox.Size = new System.Drawing.Size(96, 17);
+            this.runOnStartupCheckBox.TabIndex = 0;
+            this.runOnStartupCheckBox.Text = "Run on startup";
+            this.runOnStartupCheckBox.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // keepLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 154);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Keep";
+            this.keepLabel.AutoSize = true;
+            this.keepLabel.Location = new System.Drawing.Point(12, 155);
+            this.keepLabel.Name = "keepLabel";
+            this.keepLabel.Size = new System.Drawing.Size(32, 13);
+            this.keepLabel.TabIndex = 7;
+            this.keepLabel.Text = "Keep";
             // 
-            // textBox2
+            // keepMbRecodingsTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(74, 154);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(36, 20);
-            this.textBox2.TabIndex = 7;
+            this.keepMbRecodingsTextBox.Location = new System.Drawing.Point(52, 152);
+            this.keepMbRecodingsTextBox.Name = "keepMbRecodingsTextBox";
+            this.keepMbRecodingsTextBox.Size = new System.Drawing.Size(36, 20);
+            this.keepMbRecodingsTextBox.TabIndex = 8;
             // 
-            // label5
+            // mbRecordingsLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(119, 155);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "MB of recordings";
+            this.mbRecordingsLabel.AutoSize = true;
+            this.mbRecordingsLabel.Location = new System.Drawing.Point(97, 155);
+            this.mbRecordingsLabel.Name = "mbRecordingsLabel";
+            this.mbRecordingsLabel.Size = new System.Drawing.Size(87, 13);
+            this.mbRecordingsLabel.TabIndex = 9;
+            this.mbRecordingsLabel.Text = "MB of recordings";
             // 
-            // button1
+            // deleteStoredButton
             // 
-            this.button1.Location = new System.Drawing.Point(20, 189);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Delete stored recordings";
-            this.button1.UseVisualStyleBackColor = true;
+            this.deleteStoredButton.Location = new System.Drawing.Point(12, 194);
+            this.deleteStoredButton.Name = "deleteStoredButton";
+            this.deleteStoredButton.Size = new System.Drawing.Size(130, 23);
+            this.deleteStoredButton.TabIndex = 10;
+            this.deleteStoredButton.Text = "Delete stored recordings";
+            this.deleteStoredButton.UseVisualStyleBackColor = true;
+            // 
+            // storeFolderTextBox
+            // 
+            this.storeFolderTextBox.Location = new System.Drawing.Point(15, 115);
+            this.storeFolderTextBox.Name = "storeFolderTextBox";
+            this.storeFolderTextBox.Size = new System.Drawing.Size(211, 20);
+            this.storeFolderTextBox.TabIndex = 5;
+            // 
+            // storeFolderButton
+            // 
+            this.storeFolderButton.Location = new System.Drawing.Point(232, 115);
+            this.storeFolderButton.Name = "storeFolderButton";
+            this.storeFolderButton.Size = new System.Drawing.Size(31, 23);
+            this.storeFolderButton.TabIndex = 6;
+            this.storeFolderButton.Text = "...";
+            this.storeFolderButton.UseVisualStyleBackColor = true;
+            this.storeFolderButton.Click += new System.EventHandler(this.storeFolderButton_Click);
+            // 
+            // okButton
+            // 
+            this.okButton.Location = new System.Drawing.Point(109, 261);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 11;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(188, 261);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 12;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(275, 305);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.storeFolderButton);
+            this.Controls.Add(this.deleteStoredButton);
+            this.Controls.Add(this.mbRecordingsLabel);
+            this.Controls.Add(this.storeFolderTextBox);
+            this.Controls.Add(this.keepMbRecodingsTextBox);
+            this.Controls.Add(this.keepLabel);
+            this.Controls.Add(this.runOnStartupCheckBox);
+            this.Controls.Add(this.storeFolderLabel);
+            this.Controls.Add(this.captureFrameEveryTextBox);
+            this.Controls.Add(this.secondsLabel);
+            this.Controls.Add(this.captureFrameEveryLabel);
             this.Name = "Options";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WorkDVR Options";
             this.Load += new System.EventHandler(this.Options_Load);
+            this.VisibleChanged += new System.EventHandler(this.Options_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,15 +191,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label captureFrameEveryLabel;
+        private System.Windows.Forms.Label secondsLabel;
+        private System.Windows.Forms.TextBox captureFrameEveryTextBox;
+        private System.Windows.Forms.FolderBrowserDialog storeFolderDialog;
+        private System.Windows.Forms.Label storeFolderLabel;
+        private System.Windows.Forms.CheckBox runOnStartupCheckBox;
+        private System.Windows.Forms.Label keepLabel;
+        private System.Windows.Forms.TextBox keepMbRecodingsTextBox;
+        private System.Windows.Forms.Label mbRecordingsLabel;
+        private System.Windows.Forms.Button deleteStoredButton;
+        private System.Windows.Forms.TextBox storeFolderTextBox;
+        private System.Windows.Forms.Button storeFolderButton;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
