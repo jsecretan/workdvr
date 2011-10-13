@@ -146,7 +146,7 @@
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 11;
-            this.okButton.Text = "OK";
+            this.okButton.Text = "Save";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
@@ -203,7 +203,7 @@
         private System.Windows.Forms.Button deleteStoredButton;
         private System.Windows.Forms.TextBox storeFolderTextBox;
         private System.Windows.Forms.Button storeFolderButton;
-        private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button okButton;
     }
 }

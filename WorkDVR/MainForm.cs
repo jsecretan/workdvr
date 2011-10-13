@@ -11,22 +11,34 @@ namespace WorkDVR
     {
         private Options options;
         private static System.Timers.Timer replayTimer;
-        private ScreenShotManager ssm;
+        private ScreenShotManager screenShotManager;
+        private CaptureManager captureManager;
 
         private bool canShutdownWindow = false;
         private bool recording = true;
+        private const int baseInterval = 1000;
+        private int timeParam = 0;
 
         public MainForm()
         {
             InitializeComponent();
 
-            replayTimer = new System.Timers.Timer(1000);
+            replayTimer = new System.Timers.Timer(baseInterval);
             replayTimer.Elapsed += new ElapsedEventHandler(ReplayFrames);
             replayTimer.Enabled = false;
 
             options = new Options();
+            captureManager = new CaptureManager();
+        }
 
-            ssm = new ScreenShotManager();
+        private void MainForm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                screenShotManager = new ScreenShotManager();
+                //trackBar.Maximum = (screenShotManager.getFramesCount() >= 100) ? 100 : screenShotManager.getFramesCount();
+                trackBar.Maximum = screenShotManager.getFramesCount() - 1;
+            }
         }
 
         private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
@@ -46,45 +58,84 @@ namespace WorkDVR
         // set image to show on form
         private void setImage()
         {
-            String imageFileName = Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), ssm.CurrentFrameName + ".png");
+            String imageFileName = Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), screenShotManager.CurrentFrameName + ".png");
             if (File.Exists(imageFileName))
             {
                 Image image = Image.FromFile(imageFileName);
-                showImagePictureBox.Image = image.GetThumbnailImage(showImagePictureBox.Width, showImagePictureBox.Height, null, IntPtr.Zero);
-
+                //showImagePictureBox.Image = image.GetThumbnailImage(showImagePictureBox.Width, showImagePictureBox.Height, null, IntPtr.Zero);
+                showImagePictureBox.Image = image;
+                
                 DateTime frameDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                SetControlPropertyThreadSafe(frameTimeLabel, "Text", "Displaying frame from: " + frameDateTime.AddSeconds(double.Parse(ssm.CurrentFrameName.ToString())));
-
+                SetControlPropertyThreadSafe(frameTimeLabel, "Text", "Displaying frame from: " + frameDateTime.AddSeconds(double.Parse(screenShotManager.CurrentFrameName.ToString())));
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void rewindButton_Click(object sender, EventArgs e)
         {
-            stopPlayback();
-            ssm.Progress = 0.0f;
-            setImage();
-            trackBar1.Value = trackBar1.Minimum;
+            if (!replayTimer.Enabled)
+            {
+                replayTimer.Enabled = true;
+                pauseButton.Visible = true;
+                playButton.Visible = false;
+            }
+
+            timeParam--;
+            replayTimer.Interval = (double)baseInterval / Math.Pow(2, Math.Abs(timeParam));
+
+            //stopPlayback();
+            //screenShotManager.Progress = 0.0f;
+            //setImage();
+            //trackBar.Value = trackBar.Minimum;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void forwardButton_Click(object sender, EventArgs e)
         {
-            replayTimer.Enabled = !replayTimer.Enabled;
+            if (!replayTimer.Enabled)
+            {
+                replayTimer.Enabled = true;
+                pauseButton.Visible = true;
+                playButton.Visible = false;
+            }
+
+            timeParam++;
+            replayTimer.Interval = (double)baseInterval / Math.Pow(2, Math.Abs(timeParam));
+
+
+            //stopPlayback();
+            //screenShotManager.Progress = 100.0f;
+            //setImage();
+            //trackBar.Value = trackBar.Maximum;
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            replayTimer.Enabled = true;
+            pauseButton.Visible = true;
+            playButton.Visible = false;
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            timeParam = 0;
+            replayTimer.Interval = baseInterval;
+
+            replayTimer.Enabled = false;
+            playButton.Visible = true;
+            pauseButton.Visible = false;
         }
 
         //Callback function for image replay
         private void ReplayFrames(object source, ElapsedEventArgs e)
         {
-            ssm.forwardOneFrame();
+            if (timeParam >= 0)
+            {
+                screenShotManager.forwardOneFrame();
+            }
+            else
+            {
+                screenShotManager.backOneFrame();
+            }
             setImage();
-            trackBar1.Value = (int) ((ssm.Progress / 100.0f) * trackBar1.Maximum);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            stopPlayback();
-            ssm.Progress = 100.0f;
-            setImage();
-            trackBar1.Value = trackBar1.Maximum;
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -95,6 +146,10 @@ namespace WorkDVR
         private void MainForm_Load(object sender, EventArgs e)
         {
             //Change proportion of the view window to match the screen
+            //System.Drawing.Drawing2D.GraphicsPath Button_Path = new System.Drawing.Drawing2D.GraphicsPath();
+            //Button_Path.AddEllipse(0, 0, this.button1.Width, this.button1.Height);
+            //Region Button_Region = new Region(Button_Path);
+            //this.button1.Region = Button_Region;
 
         }
 
@@ -114,9 +169,9 @@ namespace WorkDVR
             this.Show();
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void trackBar_Scroll(object sender, EventArgs e)
         {
-            ssm.Progress = trackBar1.Value;
+            screenShotManager.Progress = (float)trackBar.Value / (float)trackBar.Maximum;
             setImage();
         }
 
@@ -147,12 +202,20 @@ namespace WorkDVR
             if (recording)
             {
                 recordingMenuItem.Text = "Stop Recording";
-                ssm.startRecording();
+                captureManager.startRecording();
             }
             else
             {
                 recordingMenuItem.Text = "Start Recording";
-                ssm.stopRecording();
+                captureManager.stopRecording();
+            }
+        }
+
+        private void showImagePictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (replayTimer.Enabled)
+            {
+                trackBar.Value = (int)(screenShotManager.Progress * (float)trackBar.Maximum + 0.5);
             }
         }
     }
