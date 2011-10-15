@@ -38,6 +38,8 @@ namespace WorkDVR
 
         private void MainForm_VisibleChanged(object sender, EventArgs e)
         {
+            stopPlayback();
+
             if (this.Visible)
             {
                 // stop recording on show main form
@@ -49,10 +51,11 @@ namespace WorkDVR
 
                 screenShotManager = new ScreenShotManager();
                 trackBar.Maximum = screenShotManager.getFramesCount() - 1;
+
+                setImage();
             }
             else
             {
-                stopPlayback();
                 storeFolderManager.startWatching();
             }
         }
@@ -171,7 +174,10 @@ namespace WorkDVR
             replayTimer.Enabled = true;
             pauseButton.Visible = true;
             playButton.Visible = false;
-
+            forwardButton.Visible = true;
+            rewindButton.Visible = true;
+            nextButton.Visible = false;
+            prevButton.Visible = false;
         }
 
         private void stopPlayback()
@@ -179,6 +185,10 @@ namespace WorkDVR
             replayTimer.Enabled = false;
             playButton.Visible = true;
             pauseButton.Visible = false;
+            nextButton.Visible = true;
+            prevButton.Visible = true;
+            forwardButton.Visible = false;
+            rewindButton.Visible = false;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -215,8 +225,27 @@ namespace WorkDVR
         {
             if (replayTimer.Enabled)
             {
-                trackBar.Value = (int)(screenShotManager.Progress * (float)trackBar.Maximum + 0.5);
+                refreshTrackBar();
             }
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            screenShotManager.forwardOneFrame();
+            setImage();
+            refreshTrackBar();
+        }
+
+        private void prevButton_Click(object sender, EventArgs e)
+        {
+            screenShotManager.backOneFrame();
+            setImage();
+            refreshTrackBar();
+        }
+
+        private void refreshTrackBar()
+        {
+            trackBar.Value = (int)(screenShotManager.Progress * (float)trackBar.Maximum + 0.5);
         }
     }
 }

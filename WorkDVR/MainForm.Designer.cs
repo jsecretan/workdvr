@@ -43,6 +43,8 @@
             this.frameTimeLabel = new System.Windows.Forms.Label();
             this.trackBar = new System.Windows.Forms.TrackBar();
             this.pauseButton = new System.Windows.Forms.Button();
+            this.prevButton = new System.Windows.Forms.Button();
+            this.nextButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.showImagePictureBox)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
@@ -176,6 +178,28 @@
             this.pauseButton.Visible = false;
             this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
+            // prevButton
+            // 
+            this.prevButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.prevButton.Location = new System.Drawing.Point(153, 383);
+            this.prevButton.Name = "prevButton";
+            this.prevButton.Size = new System.Drawing.Size(75, 23);
+            this.prevButton.TabIndex = 2;
+            this.prevButton.Text = "|<";
+            this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
+            // 
+            // nextButton
+            // 
+            this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.nextButton.Location = new System.Drawing.Point(315, 383);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(75, 23);
+            this.nextButton.TabIndex = 4;
+            this.nextButton.Text = ">|";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,10 +207,12 @@
             this.ClientSize = new System.Drawing.Size(542, 427);
             this.Controls.Add(this.showImagePictureBox);
             this.Controls.Add(this.frameTimeLabel);
-            this.Controls.Add(this.rewindButton);
             this.Controls.Add(this.trackBar);
+            this.Controls.Add(this.rewindButton);
             this.Controls.Add(this.forwardButton);
+            this.Controls.Add(this.prevButton);
             this.Controls.Add(this.playButton);
+            this.Controls.Add(this.nextButton);
             this.Controls.Add(this.pauseButton);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -217,6 +243,8 @@
         private System.Windows.Forms.Label frameTimeLabel;
         private System.Windows.Forms.TrackBar trackBar;
         private System.Windows.Forms.Button pauseButton;
+        private System.Windows.Forms.Button prevButton;
+        private System.Windows.Forms.Button nextButton;
     }
 }
 
