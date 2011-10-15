@@ -70,7 +70,7 @@
             this.rewindButton.Location = new System.Drawing.Point(153, 383);
             this.rewindButton.Name = "rewindButton";
             this.rewindButton.Size = new System.Drawing.Size(75, 23);
-            this.rewindButton.TabIndex = 1;
+            this.rewindButton.TabIndex = 2;
             this.rewindButton.Text = "<<";
             this.rewindButton.UseVisualStyleBackColor = true;
             this.rewindButton.Click += new System.EventHandler(this.rewindButton_Click);
@@ -81,7 +81,7 @@
             this.playButton.Location = new System.Drawing.Point(234, 383);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(75, 23);
-            this.playButton.TabIndex = 2;
+            this.playButton.TabIndex = 3;
             this.playButton.Text = ">";
             this.playButton.UseVisualStyleBackColor = true;
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
@@ -92,7 +92,7 @@
             this.forwardButton.Location = new System.Drawing.Point(315, 383);
             this.forwardButton.Name = "forwardButton";
             this.forwardButton.Size = new System.Drawing.Size(75, 23);
-            this.forwardButton.TabIndex = 3;
+            this.forwardButton.TabIndex = 4;
             this.forwardButton.Text = ">>";
             this.forwardButton.UseVisualStyleBackColor = true;
             this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
@@ -113,33 +113,33 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(159, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(161, 92);
             // 
             // recordingMenuItem
             // 
             this.recordingMenuItem.Name = "recordingMenuItem";
-            this.recordingMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.recordingMenuItem.Text = "Stop Recording";
+            this.recordingMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.recordingMenuItem.Text = "Start Recording";
             this.recordingMenuItem.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(158, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItem2.Text = "Options";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(158, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItem3.Text = "Show Playback";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(158, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(160, 22);
             this.toolStripMenuItem4.Text = "Exit";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
@@ -149,7 +149,7 @@
             this.frameTimeLabel.Location = new System.Drawing.Point(12, 10);
             this.frameTimeLabel.Name = "frameTimeLabel";
             this.frameTimeLabel.Size = new System.Drawing.Size(76, 13);
-            this.frameTimeLabel.TabIndex = 5;
+            this.frameTimeLabel.TabIndex = 0;
             this.frameTimeLabel.Text = "Desktop from: ";
             // 
             // trackBar
@@ -160,7 +160,7 @@
             this.trackBar.Location = new System.Drawing.Point(15, 329);
             this.trackBar.Name = "trackBar";
             this.trackBar.Size = new System.Drawing.Size(512, 45);
-            this.trackBar.TabIndex = 6;
+            this.trackBar.TabIndex = 1;
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 

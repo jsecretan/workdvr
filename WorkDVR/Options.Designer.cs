@@ -122,6 +122,7 @@
             this.deleteStoredButton.TabIndex = 10;
             this.deleteStoredButton.Text = "Delete stored recordings";
             this.deleteStoredButton.UseVisualStyleBackColor = true;
+            this.deleteStoredButton.Click += new System.EventHandler(this.deleteStoredButton_Click);
             // 
             // storeFolderTextBox
             // 
@@ -179,7 +180,6 @@
             this.Controls.Add(this.secondsLabel);
             this.Controls.Add(this.captureFrameEveryLabel);
             this.Name = "Options";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WorkDVR Options";
             this.Load += new System.EventHandler(this.Options_Load);

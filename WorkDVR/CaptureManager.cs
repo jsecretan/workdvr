@@ -15,8 +15,11 @@ namespace WorkDVR
             // Create a screen capture timer with the configured timeout
             screenCapTimer = new System.Timers.Timer(ConfigManager.GetIntProperty(ConfigManager.captureFrameIntervalProperty) * 1000);
             screenCapTimer.Elapsed += new ElapsedEventHandler(PeriodicImageCapture);
-            startRecording();        
-            setupLocalDirectories();
+        }
+
+        public bool isRecording()
+        {
+            return screenCapTimer.Enabled;
         }
 
         public void stopRecording()
@@ -26,17 +29,8 @@ namespace WorkDVR
 
         public void startRecording()
         {
+            screenCapTimer.Interval = ConfigManager.GetIntProperty(ConfigManager.captureFrameIntervalProperty) * 1000;
             screenCapTimer.Enabled = true;
-        }
-
-        //TODO
-        private void deleteFilesUntilUnderLimit()
-        {
-            //Iterate through frames, and delete until we are within the storage limit
-//            foreach (int i in frames)
-            {
-
-            }
         }
 
         //Callback function for image capturing
@@ -47,15 +41,7 @@ namespace WorkDVR
             int frameTime = (int)t.TotalSeconds;
   //          frames.Add(frameTime);
             Rectangle bounds = Screen.GetBounds(Screen.GetBounds(Point.Empty));
-            ScreenShotManager.CaptureImage(Point.Empty, Point.Empty, bounds, Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), frameTime + ".png"));
-        }
-
-        private void setupLocalDirectories()
-        {
-            if (!Directory.Exists(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty)))
-            {
-                Directory.CreateDirectory(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty));
-            }
+            ScreenShotManager.CaptureImage(Point.Empty, Point.Empty, bounds, Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), frameTime + ScreenShotManager.ScreenShotFileExt));
         }
     }
 }

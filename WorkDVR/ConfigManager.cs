@@ -12,14 +12,14 @@ namespace WorkDVR
         // configuration properties names
         public const string captureFrameIntervalProperty = "CaptureFrameInterval";
         public const string framesStoreFolderProperty = "FramesStoreFolder";
-        public const string keepMbRecodingsProperty = "KeepMbRecodings";
+        public const string keepMBRecodingsProperty = "KeepMBRecodings";
 
         // properties default values
         private const int defaultCaptureFrameInterval = 5; // in seconds
-        private const int defaultKeepMbRecodings = 100;
+        private const int defaultKeepMBRecodings = 100;
         private const string applicationSubFolder = @"WorkDVR\";
         private const string capturesSubFolder = "ScreenCaptures";
-        private const string exeFileName = "WorkDVR.exe";
+        private const string configName = "WorkDVR";
         
         private static string applicationFolder;
         private static System.Configuration.Configuration config;
@@ -36,13 +36,15 @@ namespace WorkDVR
                 Directory.CreateDirectory(applicationFolder);
             }
 
-            string configFilePath = Path.Combine(applicationFolder, exeFileName);
+            string configFilePath = Path.Combine(applicationFolder, configName);
             File.Create(configFilePath); // temporary solution
             config = ConfigurationManager.OpenExeConfiguration(configFilePath);
 
             defaultValues.Add(captureFrameIntervalProperty, defaultCaptureFrameInterval);
             defaultValues.Add(framesStoreFolderProperty, Path.Combine(applicationFolder, capturesSubFolder));
-            defaultValues.Add(keepMbRecodingsProperty, defaultKeepMbRecodings);
+            defaultValues.Add(keepMBRecodingsProperty, defaultKeepMBRecodings);
+
+            Save();
         }
 
         public static string GetProperty(string name)
@@ -68,6 +70,16 @@ namespace WorkDVR
         {
             config.Save(ConfigurationSaveMode.Full);
             ConfigurationManager.RefreshSection("appSettings");
+            
+            setupLocalDirectories();
+        }
+
+        private static void setupLocalDirectories()
+        {
+            if (!Directory.Exists(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty)))
+            {
+                Directory.CreateDirectory(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty));
+            }
         }
     }
 }

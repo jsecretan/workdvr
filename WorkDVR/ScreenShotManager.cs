@@ -5,9 +5,10 @@ using System.Drawing.Imaging;
 
 namespace WorkDVR
 {
-
     class ScreenShotManager
     {
+        public const string ScreenShotFileExt = ".png";
+
         private ArrayList frames;
         private int currentFrame = 0;
 
@@ -81,7 +82,8 @@ namespace WorkDVR
 
         private void loadExistingFrames()
         {
-            string[] filePaths = Directory.GetFiles(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), "*.png");
+            string[] filePaths = Directory.GetFiles(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), "*" + ScreenShotManager.ScreenShotFileExt);
+
             foreach (string file in filePaths)
             {
                 string fileNameWithoutExt = Path.GetFileNameWithoutExtension(file);

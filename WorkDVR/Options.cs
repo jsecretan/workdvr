@@ -37,7 +37,7 @@ namespace WorkDVR
             {
                 captureFrameEveryTextBox.Text = ConfigManager.GetProperty(ConfigManager.captureFrameIntervalProperty);
                 storeFolderTextBox.Text = ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty);
-                keepMbRecodingsTextBox.Text = ConfigManager.GetProperty(ConfigManager.keepMbRecodingsProperty);
+                keepMbRecodingsTextBox.Text = ConfigManager.GetProperty(ConfigManager.keepMBRecodingsProperty);
             }
         }
 
@@ -45,7 +45,7 @@ namespace WorkDVR
         {
             ConfigManager.SetProperty(ConfigManager.captureFrameIntervalProperty, captureFrameEveryTextBox.Text);
             ConfigManager.SetProperty(ConfigManager.framesStoreFolderProperty, storeFolderTextBox.Text);
-            ConfigManager.SetProperty(ConfigManager.keepMbRecodingsProperty, keepMbRecodingsTextBox.Text);
+            ConfigManager.SetProperty(ConfigManager.keepMBRecodingsProperty, keepMbRecodingsTextBox.Text);
             ConfigManager.Save();
 
             this.Hide();
@@ -54,6 +54,14 @@ namespace WorkDVR
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void deleteStoredButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Confirm delete", "Delete stored recordings?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                StoreFolderManager.DeleteAllRecords();
+            }
         }
     }
 }

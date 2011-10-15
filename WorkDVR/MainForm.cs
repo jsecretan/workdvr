@@ -13,9 +13,9 @@ namespace WorkDVR
         private static System.Timers.Timer replayTimer;
         private ScreenShotManager screenShotManager;
         private CaptureManager captureManager;
+        private StoreFolderManager storeFolderManager;
 
         private bool canShutdownWindow = false;
-        private bool recording = true;
         private const int baseInterval = 1000;
         private int timeParam = 0;
 
@@ -29,15 +29,31 @@ namespace WorkDVR
 
             options = new Options();
             captureManager = new CaptureManager();
+            storeFolderManager = new StoreFolderManager();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
         }
 
         private void MainForm_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
             {
+                // stop recording on show main form
+                if (captureManager.isRecording())
+                {
+                    SwitchRecording();
+                }
+                storeFolderManager.stopWatching();
+
                 screenShotManager = new ScreenShotManager();
-                //trackBar.Maximum = (screenShotManager.getFramesCount() >= 100) ? 100 : screenShotManager.getFramesCount();
                 trackBar.Maximum = screenShotManager.getFramesCount() - 1;
+            }
+            else
+            {
+                stopPlayback();
+                storeFolderManager.startWatching();
             }
         }
 
@@ -58,7 +74,7 @@ namespace WorkDVR
         // set image to show on form
         private void setImage()
         {
-            String imageFileName = Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), screenShotManager.CurrentFrameName + ".png");
+            String imageFileName = Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), screenShotManager.CurrentFrameName + ScreenShotManager.ScreenShotFileExt);
             if (File.Exists(imageFileName))
             {
                 Image image = Image.FromFile(imageFileName);
@@ -81,11 +97,6 @@ namespace WorkDVR
 
             timeParam--;
             replayTimer.Interval = (double)baseInterval / Math.Pow(2, Math.Abs(timeParam));
-
-            //stopPlayback();
-            //screenShotManager.Progress = 0.0f;
-            //setImage();
-            //trackBar.Value = trackBar.Minimum;
         }
 
         private void forwardButton_Click(object sender, EventArgs e)
@@ -99,19 +110,11 @@ namespace WorkDVR
 
             timeParam++;
             replayTimer.Interval = (double)baseInterval / Math.Pow(2, Math.Abs(timeParam));
-
-
-            //stopPlayback();
-            //screenShotManager.Progress = 100.0f;
-            //setImage();
-            //trackBar.Value = trackBar.Maximum;
         }
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            replayTimer.Enabled = true;
-            pauseButton.Visible = true;
-            playButton.Visible = false;
+            startPlayback();
         }
 
         private void pauseButton_Click(object sender, EventArgs e)
@@ -119,9 +122,7 @@ namespace WorkDVR
             timeParam = 0;
             replayTimer.Interval = baseInterval;
 
-            replayTimer.Enabled = false;
-            playButton.Visible = true;
-            pauseButton.Visible = false;
+            stopPlayback();
         }
 
         //Callback function for image replay
@@ -141,16 +142,6 @@ namespace WorkDVR
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //Change proportion of the view window to match the screen
-            //System.Drawing.Drawing2D.GraphicsPath Button_Path = new System.Drawing.Drawing2D.GraphicsPath();
-            //Button_Path.AddEllipse(0, 0, this.button1.Width, this.button1.Height);
-            //Region Button_Region = new Region(Button_Path);
-            //this.button1.Region = Button_Region;
-
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -178,11 +169,16 @@ namespace WorkDVR
         private void startPlayback()
         {
             replayTimer.Enabled = true;
+            pauseButton.Visible = true;
+            playButton.Visible = false;
+
         }
 
         private void stopPlayback()
         {
             replayTimer.Enabled = false;
+            playButton.Visible = true;
+            pauseButton.Visible = false;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -198,8 +194,12 @@ namespace WorkDVR
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            recording = !recording;
-            if (recording)
+            SwitchRecording();
+        }
+
+        private void SwitchRecording()
+        {
+            if (!captureManager.isRecording())
             {
                 recordingMenuItem.Text = "Stop Recording";
                 captureManager.startRecording();
