@@ -13,7 +13,7 @@ namespace WorkDVR
         public CaptureManager()
         {
             // Create a screen capture timer with the configured timeout
-            screenCapTimer = new System.Timers.Timer(ConfigManager.GetIntProperty(ConfigManager.captureFrameIntervalProperty) * 1000);
+            screenCapTimer = new System.Timers.Timer(Properties.Settings.Default.CaptureFrameInterval * 1000);
             screenCapTimer.Elapsed += new ElapsedEventHandler(PeriodicImageCapture);
         }
 
@@ -29,7 +29,7 @@ namespace WorkDVR
 
         public void startRecording()
         {
-            screenCapTimer.Interval = ConfigManager.GetIntProperty(ConfigManager.captureFrameIntervalProperty) * 1000;
+            screenCapTimer.Interval = Properties.Settings.Default.CaptureFrameInterval * 1000;
             screenCapTimer.Enabled = true;
         }
 
@@ -41,7 +41,7 @@ namespace WorkDVR
             int frameTime = (int)t.TotalSeconds;
   //          frames.Add(frameTime);
             Rectangle bounds = Screen.GetBounds(Screen.GetBounds(Point.Empty));
-            ScreenShotManager.CaptureImage(Point.Empty, Point.Empty, bounds, Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), frameTime + ScreenShotManager.ScreenShotFileExt));
+            ScreenShotManager.CaptureImage(Point.Empty, Point.Empty, bounds, Path.Combine(Properties.Settings.Default.FramesStoreFolder, frameTime + ScreenShotManager.ScreenShotFileExt));
         }
     }
 }

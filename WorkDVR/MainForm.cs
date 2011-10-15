@@ -22,6 +22,8 @@ namespace WorkDVR
         public MainForm()
         {
             InitializeComponent();
+            
+            setupLocalDirectories();
 
             replayTimer = new System.Timers.Timer(baseInterval);
             replayTimer.Elapsed += new ElapsedEventHandler(ReplayFrames);
@@ -39,6 +41,7 @@ namespace WorkDVR
         private void MainForm_VisibleChanged(object sender, EventArgs e)
         {
             stopPlayback();
+            trackBar.Value = trackBar.Minimum;
 
             if (this.Visible)
             {
@@ -52,7 +55,15 @@ namespace WorkDVR
                 screenShotManager = new ScreenShotManager();
                 trackBar.Maximum = screenShotManager.getFramesCount() - 1;
 
-                setImage();
+                if (screenShotManager.getFramesCount() > 0)
+                {
+                    EnabledControls(true);
+                    setImage();
+                }
+                else
+                {
+                    EnabledControls(false);
+                }
             }
             else
             {
@@ -77,7 +88,7 @@ namespace WorkDVR
         // set image to show on form
         private void setImage()
         {
-            String imageFileName = Path.Combine(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), screenShotManager.CurrentFrameName + ScreenShotManager.ScreenShotFileExt);
+            String imageFileName = Path.Combine(Properties.Settings.Default.FramesStoreFolder, screenShotManager.CurrentFrameName + ScreenShotManager.ScreenShotFileExt);
             if (File.Exists(imageFileName))
             {
                 Image image = Image.FromFile(imageFileName);
@@ -122,9 +133,7 @@ namespace WorkDVR
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
-            timeParam = 0;
             replayTimer.Interval = baseInterval;
-
             stopPlayback();
         }
 
@@ -178,6 +187,9 @@ namespace WorkDVR
             rewindButton.Visible = true;
             nextButton.Visible = false;
             prevButton.Visible = false;
+
+            // start play with normal speed
+            timeParam = 0;
         }
 
         private void stopPlayback()
@@ -189,6 +201,17 @@ namespace WorkDVR
             prevButton.Visible = true;
             forwardButton.Visible = false;
             rewindButton.Visible = false;
+        }
+
+        private void EnabledControls(bool enable)
+        {
+            playButton.Enabled = enable;
+            pauseButton.Enabled = enable;
+            nextButton.Enabled = enable;
+            prevButton.Enabled = enable;
+            forwardButton.Enabled = enable;
+            rewindButton.Enabled = enable;
+            trackBar.Enabled = enable;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -246,6 +269,25 @@ namespace WorkDVR
         private void refreshTrackBar()
         {
             trackBar.Value = (int)(screenShotManager.Progress * (float)trackBar.Maximum + 0.5);
+            if (trackBar.Value == trackBar.Minimum || trackBar.Value == trackBar.Maximum)
+            {
+                stopPlayback();
+            }
+        }
+
+        private static void setupLocalDirectories()
+        {
+            if (Properties.Settings.Default.FramesStoreFolder.Length == 0)
+            {
+                string localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                Properties.Settings.Default.FramesStoreFolder = Path.Combine(localApplicationData, Properties.Settings.Default.ScreenCapturesFolder);
+                Properties.Settings.Default.Save();
+            }
+
+            if (!Directory.Exists(Properties.Settings.Default.FramesStoreFolder))
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.FramesStoreFolder);
+            }
         }
     }
 }

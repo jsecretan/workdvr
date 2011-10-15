@@ -35,18 +35,19 @@ namespace WorkDVR
         {
             if (this.Visible)
             {
-                captureFrameEveryTextBox.Text = ConfigManager.GetProperty(ConfigManager.captureFrameIntervalProperty);
-                storeFolderTextBox.Text = ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty);
-                keepMbRecodingsTextBox.Text = ConfigManager.GetProperty(ConfigManager.keepMBRecodingsProperty);
+                captureFrameEveryTextBox.Text = Properties.Settings.Default.CaptureFrameInterval.ToString();
+                storeFolderTextBox.Text = Properties.Settings.Default.FramesStoreFolder;
+                keepMbRecodingsTextBox.Text = Properties.Settings.Default.KeepMBRecodings.ToString();
             }
         }
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            ConfigManager.SetProperty(ConfigManager.captureFrameIntervalProperty, captureFrameEveryTextBox.Text);
-            ConfigManager.SetProperty(ConfigManager.framesStoreFolderProperty, storeFolderTextBox.Text);
-            ConfigManager.SetProperty(ConfigManager.keepMBRecodingsProperty, keepMbRecodingsTextBox.Text);
-            ConfigManager.Save();
+            Properties.Settings.Default.CaptureFrameInterval = int.Parse(captureFrameEveryTextBox.Text);
+            Properties.Settings.Default.FramesStoreFolder = storeFolderTextBox.Text;
+            Properties.Settings.Default.KeepMBRecodings = int.Parse(keepMbRecodingsTextBox.Text);
+            
+            Properties.Settings.Default.Save();
 
             this.Hide();
         }

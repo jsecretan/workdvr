@@ -82,7 +82,7 @@ namespace WorkDVR
 
         private void loadExistingFrames()
         {
-            string[] filePaths = Directory.GetFiles(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), "*" + ScreenShotManager.ScreenShotFileExt);
+            string[] filePaths = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
 
             foreach (string file in filePaths)
             {

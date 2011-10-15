@@ -37,7 +37,7 @@ namespace WorkDVR
 
             SortedDictionary<string, long> filesDic = new SortedDictionary<string, long>();
 
-            string[] files = Directory.GetFiles(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), "*" + ScreenShotManager.ScreenShotFileExt);
+            string[] files = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
 
             // get files for store folder folder
             foreach (string file in files)
@@ -48,7 +48,7 @@ namespace WorkDVR
             }
 
             // from MBs to bytes
-            long folderMaxSize = ConfigManager.GetIntProperty(ConfigManager.keepMBRecodingsProperty) * 1024 * 1024;
+            long folderMaxSize = Properties.Settings.Default.KeepMBRecodings * 1024 * 1024;
 
             foreach (string file in filesDic.Keys)
             {
@@ -63,7 +63,7 @@ namespace WorkDVR
 
         internal static void DeleteAllRecords()
         {
-            string[] files = Directory.GetFiles(ConfigManager.GetProperty(ConfigManager.framesStoreFolderProperty), "*" + ScreenShotManager.ScreenShotFileExt);
+            string[] files = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
 
             foreach (string file in files)
             {
