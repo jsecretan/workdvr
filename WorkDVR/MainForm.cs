@@ -36,6 +36,12 @@ namespace WorkDVR
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // resize main form for the current screen ratio
+            // default ratio is 16:9
+            int newImageWidth = (int)((float)showImagePictureBox.Height / (float)Screen.PrimaryScreen.Bounds.Height 
+                * (float)Screen.PrimaryScreen.Bounds.Width);
+
+            this.Width = this.Width - showImagePictureBox.Width + newImageWidth;
         }
 
         private void MainForm_VisibleChanged(object sender, EventArgs e)
