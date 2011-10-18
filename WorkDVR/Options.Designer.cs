@@ -223,16 +223,16 @@
             this.licenseGroupBox.Controls.Add(this.enterLicKeyTextBox);
             this.licenseGroupBox.Controls.Add(this.enterLicKeyLabel);
             this.licenseGroupBox.Controls.Add(this.buyLicenseLinkLabel);
-            this.licenseGroupBox.Location = new System.Drawing.Point(12, 294);
+            this.licenseGroupBox.Location = new System.Drawing.Point(15, 294);
             this.licenseGroupBox.Name = "licenseGroupBox";
-            this.licenseGroupBox.Size = new System.Drawing.Size(277, 157);
+            this.licenseGroupBox.Size = new System.Drawing.Size(274, 157);
             this.licenseGroupBox.TabIndex = 15;
             this.licenseGroupBox.TabStop = false;
             this.licenseGroupBox.Text = "License";
             // 
             // registerButton
             // 
-            this.registerButton.Location = new System.Drawing.Point(189, 116);
+            this.registerButton.Location = new System.Drawing.Point(186, 116);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(75, 23);
             this.registerButton.TabIndex = 3;
@@ -244,7 +244,7 @@
             // 
             this.enterLicKeyTextBox.Location = new System.Drawing.Point(13, 80);
             this.enterLicKeyTextBox.Name = "enterLicKeyTextBox";
-            this.enterLicKeyTextBox.Size = new System.Drawing.Size(251, 20);
+            this.enterLicKeyTextBox.Size = new System.Drawing.Size(248, 20);
             this.enterLicKeyTextBox.TabIndex = 2;
             this.enterLicKeyTextBox.TextChanged += new System.EventHandler(this.enterLicKeyTextBox_TextChanged);
             // 
@@ -260,7 +260,7 @@
             // buyLicenseLinkLabel
             // 
             this.buyLicenseLinkLabel.AutoSize = true;
-            this.buyLicenseLinkLabel.Location = new System.Drawing.Point(10, 25);
+            this.buyLicenseLinkLabel.Location = new System.Drawing.Point(78, 25);
             this.buyLicenseLinkLabel.Name = "buyLicenseLinkLabel";
             this.buyLicenseLinkLabel.Size = new System.Drawing.Size(120, 13);
             this.buyLicenseLinkLabel.TabIndex = 0;

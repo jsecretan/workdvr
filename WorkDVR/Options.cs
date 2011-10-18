@@ -65,15 +65,43 @@ namespace WorkDVR
 
         private void deleteStoredButton_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Confirm delete", "Delete stored recordings?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Confirm delete", "Delete stored recordings?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            DateTime checkPoint = DateTime.UtcNow;
+
+            switch (deleteOptionsComboBox.SelectedIndex)
+            {
+                case 0: // the past hour
+                    checkPoint = DateTime.UtcNow.AddHours(-1);
+                    break;
+                case 1: // the last 24 hours
+                    checkPoint = DateTime.UtcNow.AddHours(-24);
+                    break;
+                case 2: // the last week
+                    checkPoint = DateTime.UtcNow.AddDays(-7);
+                    break;
+                case 3: // everything
+                    checkPoint = DateTime.MinValue;
+                    break;
+                default:
+                    return;
+            };
+
+            if (checkPoint.Equals(DateTime.MinValue))
             {
                 StoreFolderManager.DeleteAllRecords();
+                return;
             }
+
+            StoreFolderManager.DeleteRecords(checkPoint);
         }
 
         private void deleteOptionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            deleteStoredButton.Enabled = (deleteOptionsComboBox.Text.Length != 0);
+            deleteStoredButton.Enabled = (deleteOptionsComboBox.SelectedIndex >= 0);
         }
 
         private void enterLicKeyTextBox_TextChanged(object sender, EventArgs e)
@@ -97,5 +125,6 @@ namespace WorkDVR
         {
             System.Diagnostics.Process.Start(buyLicenseLinkLabel.Text);
         }
+
     }
 }

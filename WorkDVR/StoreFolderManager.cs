@@ -70,5 +70,21 @@ namespace WorkDVR
                 File.Delete(file);
             }
         }
+
+        internal static void DeleteRecords(DateTime checkPoint)
+        {
+            string[] files = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
+            int checkPointFrameTime = (int)(checkPoint - new DateTime(1970, 1, 1)).TotalSeconds;
+
+            foreach (string file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+                int fileTime = int.Parse(Path.GetFileNameWithoutExtension(fileInfo.Name));
+                if (fileTime >= checkPointFrameTime)
+                {
+                    File.Delete(file);
+                }
+            }
+        }
     }
 }

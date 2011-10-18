@@ -36,12 +36,12 @@ namespace WorkDVR
         //Callback function for image capturing
         public void PeriodicImageCapture(object source, ElapsedEventArgs e)
         {
-            //Calculate UNIX epoch time to make the file name
-            TimeSpan t = (DateTime.UtcNow - new DateTime(1970, 1, 1));
-            int frameTime = (int)t.TotalSeconds;
-  //          frames.Add(frameTime);
+            //Calculate UTC time to make the file name
+            int frameTime = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
             Rectangle bounds = Screen.GetBounds(Screen.GetBounds(Point.Empty));
-            ScreenShotManager.CaptureImage(Point.Empty, Point.Empty, bounds, Path.Combine(Properties.Settings.Default.FramesStoreFolder, frameTime + ScreenShotManager.ScreenShotFileExt));
+
+            ScreenShotManager.CaptureImage(Point.Empty, Point.Empty, bounds, 
+                Path.Combine(Properties.Settings.Default.FramesStoreFolder, frameTime + ScreenShotManager.ScreenShotFileExt));
         }
     }
 }
