@@ -45,7 +45,6 @@ RequestExecutionLevel admin
 ; Finish page
 !define MUI_FINISHPAGE_RUN "$INSTDIR\WorkDVR.exe"
 !insertmacro MUI_PAGE_FINISH
-
 ; Uninstaller pages
 !insertmacro MUI_UNPAGE_INSTFILES
 
