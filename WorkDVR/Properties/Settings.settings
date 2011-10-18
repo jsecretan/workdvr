@@ -14,5 +14,8 @@
     <Setting Name="FramesStoreFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="LicenseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://www.workdvr.com</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -51,6 +51,9 @@ namespace WorkDVR
 
             if (this.Visible)
             {
+                License licForm = new License();
+                licForm.ShowDialog();
+
                 // stop recording on show main form
                 if (captureManager.isRecording())
                 {
@@ -98,7 +101,6 @@ namespace WorkDVR
             if (File.Exists(imageFileName))
             {
                 Image image = Image.FromFile(imageFileName);
-                //showImagePictureBox.Image = image.GetThumbnailImage(showImagePictureBox.Width, showImagePictureBox.Height, null, IntPtr.Zero);
                 showImagePictureBox.Image = image;
                 
                 DateTime frameDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);

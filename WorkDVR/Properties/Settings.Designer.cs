@@ -67,5 +67,17 @@ namespace WorkDVR.Properties {
                 this["FramesStoreFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.workdvr.com")]
+        public string LicenseUrl {
+            get {
+                return ((string)(this["LicenseUrl"]));
+            }
+            set {
+                this["LicenseUrl"] = value;
+            }
+        }
     }
 }

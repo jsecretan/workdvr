@@ -11,6 +11,8 @@ namespace WorkDVR
 {
     public partial class Options : Form
     {
+        private int heightWoLicenseBlock = 385;
+
         public Options()
         {
             InitializeComponent();
@@ -21,6 +23,9 @@ namespace WorkDVR
             // not resizable form
             this.MinimumSize = new Size(Size.Width, Size.Height);
             this.MaximumSize = new Size(Size.Width, Size.Height);
+
+            buyLicenseLinkLabel.Text = Properties.Settings.Default.LicenseUrl;
+            registerButton.Enabled = false;
         }
 
         private void storeFolderButton_Click(object sender, EventArgs e)
@@ -38,6 +43,7 @@ namespace WorkDVR
                 captureFrameEveryTextBox.Text = Properties.Settings.Default.CaptureFrameInterval.ToString();
                 storeFolderTextBox.Text = Properties.Settings.Default.FramesStoreFolder;
                 keepMbRecodingsTextBox.Text = Properties.Settings.Default.KeepMBRecodings.ToString();
+                deleteStoredButton.Enabled = false;
             }
         }
 
@@ -63,6 +69,33 @@ namespace WorkDVR
             {
                 StoreFolderManager.DeleteAllRecords();
             }
+        }
+
+        private void deleteOptionsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            deleteStoredButton.Enabled = (deleteOptionsComboBox.Text.Length != 0);
+        }
+
+        private void enterLicKeyTextBox_TextChanged(object sender, EventArgs e)
+        {
+            registerButton.Enabled = enterLicKeyTextBox.Text.Length != 0;
+        }
+
+        private void removeLicenseBlock()
+        {
+            licenseGroupBox.Visible = false;
+            this.MinimumSize = new Size(Size.Width, heightWoLicenseBlock);
+            this.MaximumSize = new Size(Size.Width, heightWoLicenseBlock);
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            removeLicenseBlock();
+        }
+
+        private void buyLicenseLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(buyLicenseLinkLabel.Text);
         }
     }
 }
