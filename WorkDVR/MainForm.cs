@@ -106,8 +106,11 @@ namespace WorkDVR
                 Image image = Image.FromFile(imageFileName);
                 showImagePictureBox.Image = image;
                 
-                DateTime frameDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                SetControlPropertyThreadSafe(frameTimeLabel, "Text", "Displaying frame from: " + frameDateTime.AddSeconds(double.Parse(screenShotManager.CurrentFrameName.ToString())));
+                DateTime frameUtcDateTime = 
+                    new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(double.Parse(screenShotManager.CurrentFrameName.ToString()));
+                DateTime frameDateTime = TimeZone.CurrentTimeZone.ToLocalTime(frameUtcDateTime);
+                
+                SetControlPropertyThreadSafe(frameTimeLabel, "Text", "Displaying frame from: " + frameDateTime);
             }
         }
 
