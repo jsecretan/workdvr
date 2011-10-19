@@ -7,8 +7,9 @@
 !define PRODUCT_WEB_SITE "http://www.workdvr.com"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\WorkDVR.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
-!define PRODUCT_AUTORUN_REG "Software\Microsoft\Windows\CurrentVersion\Run"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
+; Start after reboot
+!define PRODUCT_AUTORUN_REG "Software\Microsoft\Windows\CurrentVersion\Run"
 
 ;Required .NET framework
 !define MIN_FRA_MAJOR "3"
@@ -21,7 +22,8 @@ RequestExecutionLevel admin
 
 ; MUI 1.67 compatible ------
 !include "MUI2.nsh"
-!include nsProcess.nsh
+!include "nsProcess.nsh"
+!include "Time.nsh"
 
 ; Interface Settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
@@ -134,9 +136,6 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\WorkDVR.lnk" "$INSTDIR\WorkDVR.exe"
   CreateShortCut "$DESKTOP\WorkDVR.lnk" "$INSTDIR\WorkDVR.exe"
 
-  ; start after reboot
-  WriteRegStr HKCU "${PRODUCT_AUTORUN_REG}" "WorkDVR.exe" "$INSTDIR\WorkDVR.exe"
-
   SetDetailsView show
 SectionEnd
 
@@ -148,14 +147,24 @@ Section -AdditionalIcons
 SectionEnd
 
 Section -Post
-  WriteUninstaller "$INSTDIR\uninst.exe"
+  Push $R0
   WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\WorkDVR.exe"
+  ; Set installation time to support license features
+  ReadRegStr "$R0" HKLM "${PRODUCT_DIR_REGKEY}" "${PRODUCT_VERSION}"
+  ${If} $R0 == ""
+        ${time::GetLocalTimeUTC} $R0
+        WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "${PRODUCT_VERSION}" "$R0"
+  ${EndIf}
+
+  WriteRegStr HKCU "${PRODUCT_AUTORUN_REG}" "WorkDVR.exe" "$INSTDIR\WorkDVR.exe"
+  WriteUninstaller "$INSTDIR\uninst.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\WorkDVR.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+  Pop $R0
 SectionEnd
 
 
@@ -188,7 +197,7 @@ Section Uninstall
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
-  DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  DeleteRegValue HKLM "${PRODUCT_DIR_REGKEY}" ""
   DeleteRegValue HKCU "${PRODUCT_AUTORUN_REG}" "WorkDVR.exe"
 
   SetAutoClose true

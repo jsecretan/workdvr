@@ -9,7 +9,7 @@ namespace WorkDVR
     public partial class Options : Form
     {
         private const int heightWoLicenseBlock = 385;
-        private const string autoRinRegKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        private const string autoRunRegKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
         public Options()
         {
@@ -22,8 +22,15 @@ namespace WorkDVR
             this.MinimumSize = new Size(Size.Width, Size.Height);
             this.MaximumSize = new Size(Size.Width, Size.Height);
 
-            buyLicenseLinkLabel.Text = Properties.Settings.Default.LicenseUrl;
-            registerButton.Enabled = false;
+            if (LicenseManager.ProgramRegistered())
+            {
+                removeLicenseBlock();
+            }
+            else
+            {
+                buyLicenseLinkLabel.Text = Properties.Settings.Default.LicenseUrl;
+                registerButton.Enabled = false;
+            }
         }
 
         private void storeFolderButton_Click(object sender, EventArgs e)
@@ -44,7 +51,7 @@ namespace WorkDVR
                 deleteStoredButton.Enabled = false;
 
                 // set run on startup checkbox from registry
-                RegistryKey regKeyAutorun = Registry.CurrentUser.CreateSubKey(autoRinRegKey);
+                RegistryKey regKeyAutorun = Registry.CurrentUser.OpenSubKey(autoRunRegKey);
                 string path = System.Windows.Forms.Application.ExecutablePath;
                 string fileName = Path.GetFileName(path);
                 runOnStartupCheckBox.Checked = regKeyAutorun.GetValue(fileName) != null;
@@ -59,7 +66,7 @@ namespace WorkDVR
             
             Properties.Settings.Default.Save();
 
-            RegistryKey regKeyAutorun = Registry.CurrentUser.CreateSubKey(autoRinRegKey);
+            RegistryKey regKeyAutorun = Registry.CurrentUser.CreateSubKey(autoRunRegKey);
             string path = System.Windows.Forms.Application.ExecutablePath;
             string fileName = Path.GetFileName(path);
 
@@ -135,7 +142,10 @@ namespace WorkDVR
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            removeLicenseBlock();
+            if (LicenseManager.EnterLicenseKey(enterLicKeyTextBox.Text))
+            {
+                removeLicenseBlock();
+            }
         }
 
         private void buyLicenseLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

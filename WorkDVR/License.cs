@@ -28,7 +28,7 @@ namespace WorkDVR
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            if (LicenseManager.enterLicenseKey(enterLicKeyTextBox.Text))
+            if (LicenseManager.EnterLicenseKey(enterLicKeyTextBox.Text))
             {
                 this.Close();
             }

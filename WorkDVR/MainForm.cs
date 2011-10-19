@@ -51,8 +51,11 @@ namespace WorkDVR
 
             if (this.Visible)
             {
-                License licForm = new License();
-                licForm.ShowDialog();
+                if (!LicenseManager.ProgramRegistered() && LicenseManager.TrialPeriod())
+                {
+                    License licForm = new License();
+                    licForm.ShowDialog();
+                }
 
                 // stop recording on show main form
                 if (captureManager.isRecording())
@@ -164,18 +167,18 @@ namespace WorkDVR
             this.Show();
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void optionsMenuItem_Click(object sender, EventArgs e)
         {
             options.Show();
         }
 
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        private void exitMenuItem_Click(object sender, EventArgs e)
         {
             canShutdownWindow = true;
             Application.Exit();
         }
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void showPlaybackMenuItem_Click(object sender, EventArgs e)
         {
             this.Show();
         }
@@ -233,9 +236,17 @@ namespace WorkDVR
             }
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void recordingMenuItem_Click(object sender, EventArgs e)
         {
-            SwitchRecording();
+            if (!LicenseManager.ProgramRegistered() && !LicenseManager.TrialPeriod())
+            {
+                License licForm = new License();
+                licForm.ShowDialog();
+            }
+            else
+            {
+                SwitchRecording();
+            }
         }
 
         private void SwitchRecording()
