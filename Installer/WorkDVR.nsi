@@ -9,7 +9,6 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_AUTORUN_REG "Software\Microsoft\Windows\CurrentVersion\Run"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define SHELLFOLDERS "Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
 
 ;Required .NET framework
 !define MIN_FRA_MAJOR "3"
@@ -187,9 +186,6 @@ Section Uninstall
 
   RMDir "$SMPROGRAMS\WorkDVR"
   RMDir "$INSTDIR"
-
-  ReadRegStr $0 HKCU "${SHELLFOLDERS}" "Local AppData"
-  RMDir "$0\WorkDVR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
