@@ -7,8 +7,9 @@
 !define PRODUCT_WEB_SITE "http://www.workdvr.com"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\WorkDVR.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
+!define PRODUCT_AUTORUN_REG "Software\Microsoft\Windows\CurrentVersion\Run"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-
+!define SHELLFOLDERS "Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
 
 ;Required .NET framework
 !define MIN_FRA_MAJOR "3"
@@ -134,6 +135,9 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\WorkDVR.lnk" "$INSTDIR\WorkDVR.exe"
   CreateShortCut "$DESKTOP\WorkDVR.lnk" "$INSTDIR\WorkDVR.exe"
 
+  ; start after reboot
+  WriteRegStr HKCU "${PRODUCT_AUTORUN_REG}" "WorkDVR.exe" "$INSTDIR\WorkDVR.exe"
+
   SetDetailsView show
 SectionEnd
 
@@ -184,8 +188,13 @@ Section Uninstall
   RMDir "$SMPROGRAMS\WorkDVR"
   RMDir "$INSTDIR"
 
+  ReadRegStr $0 HKCU "${SHELLFOLDERS}" "Local AppData"
+  RMDir "$0\WorkDVR"
+
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
   DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  DeleteRegValue HKCU "${PRODUCT_AUTORUN_REG}" "WorkDVR.exe"
+
   SetAutoClose true
 SectionEnd
 
