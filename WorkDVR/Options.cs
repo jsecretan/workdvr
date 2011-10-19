@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using Microsoft.Win32; 
+using System.IO;
 
 namespace WorkDVR
 {
     public partial class Options : Form
     {
-        private int heightWoLicenseBlock = 385;
+        private const int heightWoLicenseBlock = 385;
+        private const string autoRinRegKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
         public Options()
         {
@@ -44,6 +42,12 @@ namespace WorkDVR
                 storeFolderTextBox.Text = Properties.Settings.Default.FramesStoreFolder;
                 keepMbRecodingsTextBox.Text = Properties.Settings.Default.KeepMBRecodings.ToString();
                 deleteStoredButton.Enabled = false;
+
+                // set run on startup checkbox from registry
+                RegistryKey regKeyAutorun = Registry.CurrentUser.CreateSubKey(autoRinRegKey);
+                string path = System.Windows.Forms.Application.ExecutablePath;
+                string fileName = Path.GetFileName(path);
+                runOnStartupCheckBox.Checked = regKeyAutorun.GetValue(fileName) != null;
             }
         }
 
@@ -54,6 +58,19 @@ namespace WorkDVR
             Properties.Settings.Default.KeepMBRecodings = int.Parse(keepMbRecodingsTextBox.Text);
             
             Properties.Settings.Default.Save();
+
+            RegistryKey regKeyAutorun = Registry.CurrentUser.CreateSubKey(autoRinRegKey);
+            string path = System.Windows.Forms.Application.ExecutablePath;
+            string fileName = Path.GetFileName(path);
+
+            if (runOnStartupCheckBox.Checked)
+            {
+                regKeyAutorun.SetValue(fileName, path);
+            }
+            else
+            {
+                regKeyAutorun.DeleteValue(fileName);
+            }
 
             this.Hide();
         }
