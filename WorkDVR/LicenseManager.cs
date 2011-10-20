@@ -13,38 +13,39 @@ namespace WorkDVR
         private static string productRegkey = @"Software\Microsoft\Windows\CurrentVersion\App Paths\WorkDVR.exe";
         private static string instLicenseRegKey = "1.0";
         private static int trialPeriod = 30;
+        private const string dateTimeFormat = "dd.MM.yyyy HH:mm:ss";
 
         public static bool ProgramRegistered()
         {
-            return getLicRegValue().Equals(licenseKey); ;
+            object reg = Registry.CurrentUser.OpenSubKey(productRegkey).GetValue(instLicenseRegKey, string.Empty);
+            return reg.Equals(licenseKey); ;
         }
 
         public static bool TrialPeriod()
         {
+            object reg = Registry.LocalMachine.OpenSubKey(productRegkey).GetValue(instLicenseRegKey, string.Empty);
             try
             {
-                DateTime instTime = DateTime.Parse(getLicRegValue());
-                DateTime checkTime = DateTime.UtcNow.AddDays(trialPeriod);
+                DateTime instTime = DateTime.ParseExact(reg.ToString(), dateTimeFormat, null);
+                DateTime checkTime = DateTime.UtcNow.AddDays(-trialPeriod);
                 return instTime.CompareTo(checkTime) > 0;
             }
             catch
             {
+                // ignore incorrect value from registry
                 return false;
             }
         }
 
         public static bool EnterLicenseKey(string key)
         {
-            RegistryKey reg = Registry.LocalMachine.CreateSubKey(productRegkey);
-            reg.SetValue(instLicenseRegKey, key);
-
-            return ProgramRegistered();
-        }
-
-        private static string getLicRegValue()
-        {
-            object reg = Registry.LocalMachine.OpenSubKey(productRegkey).GetValue(instLicenseRegKey, string.Empty);
-            return reg.ToString();
+            if (key.Equals(licenseKey))
+            {
+                RegistryKey reg = Registry.CurrentUser.CreateSubKey(productRegkey);
+                reg.SetValue(instLicenseRegKey, key);
+                return true;
+            }
+            return false;
         }
     }
 }

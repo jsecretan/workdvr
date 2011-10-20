@@ -43,7 +43,7 @@
             this.registerButton.Location = new System.Drawing.Point(230, 177);
             this.registerButton.Name = "registerButton";
             this.registerButton.Size = new System.Drawing.Size(75, 23);
-            this.registerButton.TabIndex = 7;
+            this.registerButton.TabIndex = 5;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
@@ -55,7 +55,7 @@
             this.enterLicKeyTextBox.Location = new System.Drawing.Point(15, 130);
             this.enterLicKeyTextBox.Name = "enterLicKeyTextBox";
             this.enterLicKeyTextBox.Size = new System.Drawing.Size(371, 20);
-            this.enterLicKeyTextBox.TabIndex = 6;
+            this.enterLicKeyTextBox.TabIndex = 4;
             this.enterLicKeyTextBox.TextChanged += new System.EventHandler(this.enterLicKeyTextBox_TextChanged);
             // 
             // enterLicKeyLabel
@@ -64,7 +64,7 @@
             this.enterLicKeyLabel.Location = new System.Drawing.Point(12, 20);
             this.enterLicKeyLabel.Name = "enterLicKeyLabel";
             this.enterLicKeyLabel.Size = new System.Drawing.Size(361, 13);
-            this.enterLicKeyLabel.TabIndex = 5;
+            this.enterLicKeyLabel.TabIndex = 0;
             this.enterLicKeyLabel.Text = "The trial period has ended. The software will no longer record screen shots.";
             // 
             // buyLicenseLinkLabel
@@ -73,7 +73,7 @@
             this.buyLicenseLinkLabel.Location = new System.Drawing.Point(137, 70);
             this.buyLicenseLinkLabel.Name = "buyLicenseLinkLabel";
             this.buyLicenseLinkLabel.Size = new System.Drawing.Size(120, 13);
-            this.buyLicenseLinkLabel.TabIndex = 4;
+            this.buyLicenseLinkLabel.TabIndex = 2;
             this.buyLicenseLinkLabel.TabStop = true;
             this.buyLicenseLinkLabel.Text = "http://www.google.com";
             this.buyLicenseLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.buyLicenseLinkLabel_LinkClicked);
@@ -84,8 +84,8 @@
             this.cancelButton.Location = new System.Drawing.Point(311, 177);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.TabIndex = 6;
+            this.cancelButton.Text = "Later";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
@@ -95,7 +95,7 @@
             this.label1.Location = new System.Drawing.Point(12, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(303, 13);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 1;
             this.label1.Text = "If you like the software, please purchase the it by clicking here:";
             // 
             // label2
@@ -104,7 +104,7 @@
             this.label2.Location = new System.Drawing.Point(12, 105);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(251, 13);
-            this.label2.TabIndex = 8;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Enter the license key from the purchase e-mail here:";
             // 
             // License
