@@ -1,17 +1,26 @@
 ﻿using System.Drawing;
 using System.Collections;
 using System.IO;
-using System.Drawing.Imaging;
 
 namespace WorkDVR
 {
+    // managing of captured screen shots
     class ScreenShotManager
     {
+        // image file extension
         public const string ScreenShotFileExt = ".png";
 
         private ArrayList frames;
         private int currentFrame = 0;
 
+        public ScreenShotManager()
+        {
+            frames = new ArrayList();
+
+            loadExistingFrames();
+        }
+
+        // forward on one frame in the screen shots array
         public void forwardOneFrame()
         {
             if (currentFrame < frames.Count - 1)
@@ -20,11 +29,13 @@ namespace WorkDVR
             }
         }
 
+        // screen shots count in the array
         public int getFramesCount()
         {
             return frames.Count;
         }
 
+        // back on one frame in the screen shots array
         public void backOneFrame()
         {
             if (currentFrame > 0)
@@ -50,7 +61,8 @@ namespace WorkDVR
             }
         }
 
-        public int CurrentFrameName    // the Name property
+        // the Name property
+        public int CurrentFrameName
         {
             get
             {
@@ -58,28 +70,7 @@ namespace WorkDVR
             }
         }
 
-        public ScreenShotManager()
-        {
-            frames = new ArrayList();
-
-            loadExistingFrames();
-        }
-        
-        public static void CaptureImage(Point SourcePoint, Point DestinationPoint,
-            Rectangle SelectionRectangle, string FilePath)
-        {
-            using (Bitmap bitmap = new Bitmap(SelectionRectangle.Width,
-                SelectionRectangle.Height))
-            {
-                using (Graphics g = Graphics.FromImage(bitmap))
-                {
-                    g.CopyFromScreen(SourcePoint, DestinationPoint,
-                        SelectionRectangle.Size);
-                }
-                bitmap.Save(FilePath, ImageFormat.Png);
-            }
-        }
-
+        // fill screen shots array from frames store folder
         private void loadExistingFrames()
         {
             string[] filePaths = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);

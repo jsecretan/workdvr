@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace WorkDVR
 {
+    // License key registration form
     public partial class License : Form
     {
         public License()
@@ -22,6 +23,7 @@ namespace WorkDVR
             this.MinimumSize = new Size(Size.Width, Size.Height);
             this.MaximumSize = new Size(Size.Width, Size.Height);
 
+            // link to buy a license
             buyLicenseLinkLabel.Text = Properties.Settings.Default.LicenseUrl;
             registerButton.Enabled = false;
         }

@@ -16,7 +16,14 @@ namespace WorkDVR
         private StoreFolderManager storeFolderManager;
 
         private bool canShutdownWindow = false;
+
+        // interval for images show
         private int baseInterval;
+
+        // 0 - normal speed, forward direction
+        // < 0 - rewind, back direction
+        // > 0 - forward direction
+        // ABS(timeParam) - speed value
         private int timeParam = 0;
 
         public MainForm()
@@ -50,21 +57,26 @@ namespace WorkDVR
             stopPlayback();
             trackBar.Value = trackBar.Minimum;
 
+            // form is opened
             if (this.Visible)
             {
+                // check license info
                 if (!LicenseManager.ProgramRegistered() && !LicenseManager.TrialPeriod())
                 {
                     License licForm = new License();
                     licForm.ShowDialog();
                 }
 
-                // stop recording on show main form
+                // stop capturing on show main form
                 if (captureManager.isRecording())
                 {
                     SwitchRecording();
                 }
+
+                // stop removal of old files to conform to a storage quota
                 storeFolderManager.stopWatching();
 
+                // initialize screen shots show
                 screenShotManager = new ScreenShotManager();
                 trackBar.Maximum = screenShotManager.getFramesCount() - 1;
 
@@ -80,6 +92,7 @@ namespace WorkDVR
             }
             else
             {
+                // start removal of old files to conform to a storage quota
                 storeFolderManager.startWatching();
             }
         }
@@ -316,6 +329,7 @@ namespace WorkDVR
             }
         }
 
+        // create folders on the first call
         private static void setupLocalDirectories()
         {
             if (Properties.Settings.Default.FramesStoreFolder.Length == 0)

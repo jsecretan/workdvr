@@ -22,12 +22,14 @@ namespace WorkDVR
             this.MinimumSize = new Size(Size.Width, Size.Height);
             this.MaximumSize = new Size(Size.Width, Size.Height);
 
+            // remove License block if product is already buyed
             if (LicenseManager.ProgramRegistered())
             {
                 removeLicenseBlock();
             }
             else
             {
+                // link to buy a license
                 buyLicenseLinkLabel.Text = Properties.Settings.Default.LicenseUrl;
                 registerButton.Enabled = false;
             }
@@ -50,7 +52,7 @@ namespace WorkDVR
                 keepMbRecodingsTextBox.Text = Properties.Settings.Default.KeepMBRecodings.ToString();
                 deleteStoredButton.Enabled = false;
 
-                // set run on startup checkbox from registry
+                // reed run on startup checkbox from registry
                 RegistryKey regKeyAutorun = Registry.CurrentUser.OpenSubKey(autoRunRegKey);
                 string path = System.Windows.Forms.Application.ExecutablePath;
                 string fileName = Path.GetFileName(path);
@@ -66,6 +68,7 @@ namespace WorkDVR
             
             Properties.Settings.Default.Save();
 
+            // set registry key from run on startup checkbox
             RegistryKey regKeyAutorun = Registry.CurrentUser.CreateSubKey(autoRunRegKey);
             string path = System.Windows.Forms.Application.ExecutablePath;
             string fileName = Path.GetFileName(path);
@@ -94,6 +97,7 @@ namespace WorkDVR
                 return;
             }
 
+            // delete old images preparation
             DateTime checkPoint = DateTime.UtcNow;
 
             switch (deleteOptionsComboBox.SelectedIndex)
@@ -114,12 +118,14 @@ namespace WorkDVR
                     return;
             };
 
+            // delete all images
             if (checkPoint.Equals(DateTime.MinValue))
             {
                 StoreFolderManager.DeleteAllRecords();
                 return;
             }
 
+            // delete images according to selected parameter
             StoreFolderManager.DeleteRecords(checkPoint);
         }
 
@@ -133,6 +139,7 @@ namespace WorkDVR
             registerButton.Enabled = enterLicKeyTextBox.Text.Length != 0;
         }
 
+        // remove License block if product is already buyed
         private void removeLicenseBlock()
         {
             licenseGroupBox.Visible = false;
@@ -148,6 +155,7 @@ namespace WorkDVR
             }
         }
 
+        // open link in the default web browser
         private void buyLicenseLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(buyLicenseLinkLabel.Text);

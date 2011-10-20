@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 namespace WorkDVR
 {
+    // manager of the store folder
+    // is used for storring of captured images
     class StoreFolderManager
     {
         private System.Timers.Timer checkFolderTimer;
@@ -20,21 +22,25 @@ namespace WorkDVR
             startWatching();        
         }
 
+        // stop watching of the folder
         public void stopWatching()
         {
             checkFolderTimer.Enabled = false;
         }
 
+        // stop watching of the folder
         public void startWatching()
         {
             checkFolderTimer.Enabled = true;
         }
 
-        //Callback function for check store folder
+        // Callback function for check store folder
+        // removal of old files to conform to a storage quota
         public void DeleteFilesUntilUnderLimit(object source, ElapsedEventArgs e)
         {
             long folderSize = 0;
 
+            // using to sort files by creation datetime
             SortedDictionary<string, long> filesDic = new SortedDictionary<string, long>();
 
             string[] files = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
@@ -61,6 +67,7 @@ namespace WorkDVR
             }
         }
 
+        // delete all images
         internal static void DeleteAllRecords()
         {
             string[] files = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
@@ -71,6 +78,7 @@ namespace WorkDVR
             }
         }
 
+        // delete images according to checkPoint parameter
         internal static void DeleteRecords(DateTime checkPoint)
         {
             string[] files = Directory.GetFiles(Properties.Settings.Default.FramesStoreFolder, "*" + ScreenShotManager.ScreenShotFileExt);
