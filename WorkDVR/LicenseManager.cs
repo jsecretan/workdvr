@@ -17,13 +17,21 @@ namespace WorkDVR
 
         public static bool ProgramRegistered()
         {
-            object reg = Registry.CurrentUser.OpenSubKey(productRegkey).GetValue(instLicenseRegKey, string.Empty);
-            return reg.Equals(licenseKey); ;
+            RegistryKey regKey = Registry.CurrentUser.OpenSubKey(productRegkey);
+            object regValue = (regKey != null) ? regKey.GetValue(instLicenseRegKey, string.Empty) : string.Empty;
+            return regValue.Equals(licenseKey); ;
         }
 
         public static bool TrialPeriod()
         {
-            object reg = Registry.LocalMachine.OpenSubKey(productRegkey).GetValue(instLicenseRegKey, string.Empty);
+            RegistryKey regKey = Registry.LocalMachine.OpenSubKey(productRegkey);
+            object reg = (regKey != null) ? regKey.GetValue(instLicenseRegKey, string.Empty) : string.Empty;
+
+            if (((string)reg).Length == 0)
+            {
+                return false;
+            }
+
             try
             {
                 DateTime instTime = DateTime.ParseExact(reg.ToString(), dateTimeFormat, null);
