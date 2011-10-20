@@ -148,4 +148,24 @@
         AADwEgAA//EAAA==
 </value>
   </data>
+  <data name="rewindButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABsAAAAUCAYAAAB8gkaAAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALDwAA
+        Cw8BkvkDpQAAALhJREFUSEvFldsNgCAMAHUTBmH/OdwEKRFSm77jw4Qfy+Uo0LK31jbjK0L8UDieAZky
+        So8BCCtaA/5lmLAIpIqMXdxkJJkIKTKT4WQqJMhcDJWZECNzM1jmgogsxEyZG0KyMAOyEHTJKlcStERo
+        uQyZNomLdaYmmPK9LJodZJZgRmbhc5vnHBGOuajHuS8Kalch5reidm8p04jNDOk2urdU6PqpRmxm+PQT
+        owrfeDxvQnzdDdkqJcqci8DR+fXSf0cAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="prevButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABsAAAAUCAYAAAB8gkaAAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALEAAA
+        CxABrSO9dQAAAMVJREFUSEu9lQEKwyAMRbeblDF2/yPtGCqiWwqCrP/HRGWFUIimz5/G5F5rvYHnQM7O
+        9x6s43iBAZPNcoqLffceJKZ9R9Yv8acPBZZSZmEQJIemsBjja0IZBamwEIIXpoJ2woYgFZZSehrTaALt
+        UGYGrSpzgZZhLM1a+uE9M5Q+vYdumKFA/ppGyYgLSDuIQZnaB1lPnf1nfZxJ4c7eOARSWM75YewgZoUU
+        huZRgw/mmX/ELMBolarKWmmTNyysbhCfCn/tA9V0F2cybBWwAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

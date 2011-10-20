@@ -17,5 +17,8 @@
     <Setting Name="LicenseUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://www.workdvr.com</Value>
     </Setting>
+    <Setting Name="PlaybackInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

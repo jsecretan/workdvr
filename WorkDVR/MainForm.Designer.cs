@@ -30,10 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.showImagePictureBox = new System.Windows.Forms.PictureBox();
-            this.rewindButton = new System.Windows.Forms.Button();
-            this.playButton = new System.Windows.Forms.Button();
-            this.forwardButton = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.recordingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,62 +38,24 @@
             this.exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frameTimeLabel = new System.Windows.Forms.Label();
             this.trackBar = new System.Windows.Forms.TrackBar();
-            this.pauseButton = new System.Windows.Forms.Button();
-            this.prevButton = new System.Windows.Forms.Button();
+            this.playLabel = new System.Windows.Forms.Label();
+            this.pauseLabel = new System.Windows.Forms.Label();
+            this.forwardFrameLabel = new System.Windows.Forms.Label();
+            this.backFrameLabel = new System.Windows.Forms.Label();
+            this.rewindLabel = new System.Windows.Forms.Label();
+            this.fastForwardLabel = new System.Windows.Forms.Label();
+            this.speedLabel = new System.Windows.Forms.Label();
+            this.showImagePictureBox = new System.Windows.Forms.PictureBox();
             this.nextButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.showImagePictureBox)).BeginInit();
+            this.forwardButton = new System.Windows.Forms.Button();
+            this.playButton = new System.Windows.Forms.Button();
+            this.rewindButton = new System.Windows.Forms.Button();
+            this.prevButton = new System.Windows.Forms.Button();
+            this.pauseButton = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.showImagePictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // showImagePictureBox
-            // 
-            this.showImagePictureBox.AccessibleName = "replayBox";
-            this.showImagePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.showImagePictureBox.BackColor = System.Drawing.Color.Black;
-            this.showImagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.showImagePictureBox.Location = new System.Drawing.Point(15, 30);
-            this.showImagePictureBox.Name = "showImagePictureBox";
-            this.showImagePictureBox.Size = new System.Drawing.Size(512, 288);
-            this.showImagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.showImagePictureBox.TabIndex = 0;
-            this.showImagePictureBox.TabStop = false;
-            this.showImagePictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.showImagePictureBox_Paint);
-            // 
-            // rewindButton
-            // 
-            this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.rewindButton.Location = new System.Drawing.Point(153, 383);
-            this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(75, 23);
-            this.rewindButton.TabIndex = 2;
-            this.rewindButton.Text = "<<";
-            this.rewindButton.UseVisualStyleBackColor = true;
-            this.rewindButton.Click += new System.EventHandler(this.rewindButton_Click);
-            // 
-            // playButton
-            // 
-            this.playButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.playButton.Location = new System.Drawing.Point(234, 383);
-            this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(75, 23);
-            this.playButton.TabIndex = 3;
-            this.playButton.Text = ">";
-            this.playButton.UseVisualStyleBackColor = true;
-            this.playButton.Click += new System.EventHandler(this.playButton_Click);
-            // 
-            // forwardButton
-            // 
-            this.forwardButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.forwardButton.Location = new System.Drawing.Point(315, 383);
-            this.forwardButton.Name = "forwardButton";
-            this.forwardButton.Size = new System.Drawing.Size(75, 23);
-            this.forwardButton.TabIndex = 4;
-            this.forwardButton.Text = ">>";
-            this.forwardButton.UseVisualStyleBackColor = true;
-            this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
             // 
             // notifyIcon
             // 
@@ -115,7 +73,7 @@
             this.showPlaybackMenuItem,
             this.exitMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(161, 114);
+            this.contextMenuStrip.Size = new System.Drawing.Size(161, 92);
             // 
             // recordingMenuItem
             // 
@@ -167,53 +125,179 @@
             this.trackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBar.Scroll += new System.EventHandler(this.trackBar_Scroll);
             // 
-            // pauseButton
+            // playLabel
             // 
-            this.pauseButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.pauseButton.Location = new System.Drawing.Point(234, 383);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(75, 23);
-            this.pauseButton.TabIndex = 2;
-            this.pauseButton.Text = "| |";
-            this.pauseButton.UseVisualStyleBackColor = true;
-            this.pauseButton.Visible = false;
-            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            this.playLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.playLabel.AutoSize = true;
+            this.playLabel.Location = new System.Drawing.Point(258, 418);
+            this.playLabel.Name = "playLabel";
+            this.playLabel.Size = new System.Drawing.Size(27, 13);
+            this.playLabel.TabIndex = 5;
+            this.playLabel.Text = "Play";
             // 
-            // prevButton
+            // pauseLabel
             // 
-            this.prevButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.prevButton.Location = new System.Drawing.Point(153, 383);
-            this.prevButton.Name = "prevButton";
-            this.prevButton.Size = new System.Drawing.Size(75, 23);
-            this.prevButton.TabIndex = 2;
-            this.prevButton.Text = "|<";
-            this.prevButton.UseVisualStyleBackColor = true;
-            this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
+            this.pauseLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.pauseLabel.AutoSize = true;
+            this.pauseLabel.Location = new System.Drawing.Point(253, 418);
+            this.pauseLabel.Name = "pauseLabel";
+            this.pauseLabel.Size = new System.Drawing.Size(37, 13);
+            this.pauseLabel.TabIndex = 6;
+            this.pauseLabel.Text = "Pause";
+            // 
+            // forwardFrameLabel
+            // 
+            this.forwardFrameLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.forwardFrameLabel.AutoSize = true;
+            this.forwardFrameLabel.Location = new System.Drawing.Point(309, 418);
+            this.forwardFrameLabel.Name = "forwardFrameLabel";
+            this.forwardFrameLabel.Size = new System.Drawing.Size(86, 13);
+            this.forwardFrameLabel.TabIndex = 7;
+            this.forwardFrameLabel.Text = "Forward 1 Frame";
+            // 
+            // backFrameLabel
+            // 
+            this.backFrameLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.backFrameLabel.AutoSize = true;
+            this.backFrameLabel.Location = new System.Drawing.Point(154, 418);
+            this.backFrameLabel.Name = "backFrameLabel";
+            this.backFrameLabel.Size = new System.Drawing.Size(73, 13);
+            this.backFrameLabel.TabIndex = 7;
+            this.backFrameLabel.Text = "Back 1 Frame";
+            // 
+            // rewindLabel
+            // 
+            this.rewindLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.rewindLabel.AutoSize = true;
+            this.rewindLabel.Location = new System.Drawing.Point(169, 418);
+            this.rewindLabel.Name = "rewindLabel";
+            this.rewindLabel.Size = new System.Drawing.Size(43, 13);
+            this.rewindLabel.TabIndex = 7;
+            this.rewindLabel.Text = "Rewind";
+            // 
+            // fastForwardLabel
+            // 
+            this.fastForwardLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.fastForwardLabel.AutoSize = true;
+            this.fastForwardLabel.Location = new System.Drawing.Point(318, 418);
+            this.fastForwardLabel.Name = "fastForwardLabel";
+            this.fastForwardLabel.Size = new System.Drawing.Size(68, 13);
+            this.fastForwardLabel.TabIndex = 7;
+            this.fastForwardLabel.Text = "Fast Forward";
+            // 
+            // speedLabel
+            // 
+            this.speedLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.speedLabel.AutoSize = true;
+            this.speedLabel.Location = new System.Drawing.Point(58, 385);
+            this.speedLabel.Name = "speedLabel";
+            this.speedLabel.Size = new System.Drawing.Size(77, 13);
+            this.speedLabel.TabIndex = 8;
+            this.speedLabel.Text = "Speed: Normal";
+            // 
+            // showImagePictureBox
+            // 
+            this.showImagePictureBox.AccessibleName = "replayBox";
+            this.showImagePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.showImagePictureBox.BackColor = System.Drawing.Color.Black;
+            this.showImagePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.showImagePictureBox.Location = new System.Drawing.Point(15, 30);
+            this.showImagePictureBox.Name = "showImagePictureBox";
+            this.showImagePictureBox.Size = new System.Drawing.Size(512, 288);
+            this.showImagePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.showImagePictureBox.TabIndex = 0;
+            this.showImagePictureBox.TabStop = false;
+            this.showImagePictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.showImagePictureBox_Paint);
             // 
             // nextButton
             // 
             this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.nextButton.Location = new System.Drawing.Point(315, 383);
+            this.nextButton.Image = global::WorkDVR.Properties.Resources.Next;
+            this.nextButton.Location = new System.Drawing.Point(315, 374);
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(75, 23);
+            this.nextButton.Size = new System.Drawing.Size(75, 35);
             this.nextButton.TabIndex = 4;
-            this.nextButton.Text = ">|";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // forwardButton
+            // 
+            this.forwardButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.forwardButton.Image = global::WorkDVR.Properties.Resources.Forward;
+            this.forwardButton.Location = new System.Drawing.Point(315, 374);
+            this.forwardButton.Name = "forwardButton";
+            this.forwardButton.Size = new System.Drawing.Size(75, 35);
+            this.forwardButton.TabIndex = 4;
+            this.forwardButton.UseVisualStyleBackColor = true;
+            this.forwardButton.Click += new System.EventHandler(this.forwardButton_Click);
+            // 
+            // playButton
+            // 
+            this.playButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.playButton.Image = global::WorkDVR.Properties.Resources.Play;
+            this.playButton.Location = new System.Drawing.Point(234, 374);
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(75, 35);
+            this.playButton.TabIndex = 3;
+            this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            // 
+            // rewindButton
+            // 
+            this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.rewindButton.Image = ((System.Drawing.Image)(resources.GetObject("rewindButton.Image")));
+            this.rewindButton.Location = new System.Drawing.Point(153, 374);
+            this.rewindButton.Name = "rewindButton";
+            this.rewindButton.Size = new System.Drawing.Size(75, 35);
+            this.rewindButton.TabIndex = 2;
+            this.rewindButton.UseVisualStyleBackColor = true;
+            this.rewindButton.Click += new System.EventHandler(this.rewindButton_Click);
+            // 
+            // prevButton
+            // 
+            this.prevButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.prevButton.Image = ((System.Drawing.Image)(resources.GetObject("prevButton.Image")));
+            this.prevButton.Location = new System.Drawing.Point(153, 374);
+            this.prevButton.Name = "prevButton";
+            this.prevButton.Size = new System.Drawing.Size(75, 35);
+            this.prevButton.TabIndex = 2;
+            this.prevButton.UseVisualStyleBackColor = true;
+            this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
+            // 
+            // pauseButton
+            // 
+            this.pauseButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.pauseButton.Image = global::WorkDVR.Properties.Resources.Pause;
+            this.pauseButton.Location = new System.Drawing.Point(234, 374);
+            this.pauseButton.Name = "pauseButton";
+            this.pauseButton.Size = new System.Drawing.Size(75, 35);
+            this.pauseButton.TabIndex = 2;
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Visible = false;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 427);
+            this.ClientSize = new System.Drawing.Size(542, 449);
+            this.Controls.Add(this.speedLabel);
+            this.Controls.Add(this.rewindLabel);
+            this.Controls.Add(this.backFrameLabel);
+            this.Controls.Add(this.fastForwardLabel);
+            this.Controls.Add(this.forwardFrameLabel);
+            this.Controls.Add(this.pauseLabel);
             this.Controls.Add(this.showImagePictureBox);
             this.Controls.Add(this.frameTimeLabel);
+            this.Controls.Add(this.playLabel);
             this.Controls.Add(this.trackBar);
-            this.Controls.Add(this.rewindButton);
-            this.Controls.Add(this.forwardButton);
-            this.Controls.Add(this.prevButton);
-            this.Controls.Add(this.playButton);
             this.Controls.Add(this.nextButton);
+            this.Controls.Add(this.forwardButton);
+            this.Controls.Add(this.playButton);
+            this.Controls.Add(this.rewindButton);
+            this.Controls.Add(this.prevButton);
             this.Controls.Add(this.pauseButton);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -221,9 +305,9 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.VisibleChanged += new System.EventHandler(this.MainForm_VisibleChanged);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.showImagePictureBox)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.showImagePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,6 +330,13 @@
         private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Button prevButton;
         private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Label playLabel;
+        private System.Windows.Forms.Label pauseLabel;
+        private System.Windows.Forms.Label forwardFrameLabel;
+        private System.Windows.Forms.Label backFrameLabel;
+        private System.Windows.Forms.Label rewindLabel;
+        private System.Windows.Forms.Label fastForwardLabel;
+        private System.Windows.Forms.Label speedLabel;
     }
 }
 

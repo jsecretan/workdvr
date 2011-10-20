@@ -16,7 +16,7 @@ namespace WorkDVR
         private StoreFolderManager storeFolderManager;
 
         private bool canShutdownWindow = false;
-        private const int baseInterval = 1000;
+        private int baseInterval;
         private int timeParam = 0;
 
         public MainForm()
@@ -24,6 +24,7 @@ namespace WorkDVR
             InitializeComponent();
             
             setupLocalDirectories();
+            baseInterval = Properties.Settings.Default.PlaybackInterval;
 
             replayTimer = new System.Timers.Timer(baseInterval);
             replayTimer.Elapsed += new ElapsedEventHandler(ReplayFrames);
@@ -116,28 +117,22 @@ namespace WorkDVR
 
         private void rewindButton_Click(object sender, EventArgs e)
         {
-            if (!replayTimer.Enabled)
-            {
-                replayTimer.Enabled = true;
-                pauseButton.Visible = true;
-                playButton.Visible = false;
-            }
-
             timeParam--;
             replayTimer.Interval = (double)baseInterval / Math.Pow(2, Math.Abs(timeParam));
+            refreshSpeedLable();
         }
 
         private void forwardButton_Click(object sender, EventArgs e)
         {
-            if (!replayTimer.Enabled)
-            {
-                replayTimer.Enabled = true;
-                pauseButton.Visible = true;
-                playButton.Visible = false;
-            }
-
             timeParam++;
             replayTimer.Interval = (double)baseInterval / Math.Pow(2, Math.Abs(timeParam));
+            refreshSpeedLable();
+        }
+
+        private void refreshSpeedLable()
+        {
+            speedLabel.Text = string.Format("Speed: {0}",
+                (timeParam == 0) ? "Normal" : (Math.Pow(2, Math.Abs(timeParam)).ToString() + "X"));
         }
 
         private void playButton_Click(object sender, EventArgs e)
@@ -194,27 +189,47 @@ namespace WorkDVR
 
         private void startPlayback()
         {
-            replayTimer.Enabled = true;
-            pauseButton.Visible = true;
-            playButton.Visible = false;
-            forwardButton.Visible = true;
-            rewindButton.Visible = true;
-            nextButton.Visible = false;
-            prevButton.Visible = false;
-
             // start play with normal speed
             timeParam = 0;
+            replayTimer.Interval = baseInterval;
+            refreshSpeedLable();
+
+            replayTimer.Enabled = true;
+
+            pauseButton.Visible = true;
+            forwardButton.Visible = true;
+            rewindButton.Visible = true;
+            pauseLabel.Visible = true;
+            fastForwardLabel.Visible = true;
+            rewindLabel.Visible = true;
+            speedLabel.Visible = true;
+
+            playButton.Visible = false;
+            nextButton.Visible = false;
+            prevButton.Visible = false;
+            playLabel.Visible = false;
+            backFrameLabel.Visible = false;
+            forwardFrameLabel.Visible = false;
         }
 
         private void stopPlayback()
         {
             replayTimer.Enabled = false;
+            
             playButton.Visible = true;
-            pauseButton.Visible = false;
             nextButton.Visible = true;
             prevButton.Visible = true;
+            playLabel.Visible = true;
+            backFrameLabel.Visible = true;
+            forwardFrameLabel.Visible = true;
+            
+            pauseButton.Visible = false;
             forwardButton.Visible = false;
             rewindButton.Visible = false;
+            pauseLabel.Visible = false;
+            fastForwardLabel.Visible = false;
+            rewindLabel.Visible = false;
+            speedLabel.Visible = false;
         }
 
         private void EnabledControls(bool enable)
