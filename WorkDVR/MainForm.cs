@@ -52,7 +52,7 @@ namespace WorkDVR
 
             if (this.Visible)
             {
-                if (!LicenseManager.ProgramRegistered() && LicenseManager.TrialPeriod())
+                if (!LicenseManager.ProgramRegistered() && !LicenseManager.TrialPeriod())
                 {
                     License licForm = new License();
                     licForm.ShowDialog();
@@ -104,9 +104,13 @@ namespace WorkDVR
             String imageFileName = Path.Combine(Properties.Settings.Default.FramesStoreFolder, screenShotManager.CurrentFrameName + ScreenShotManager.ScreenShotFileExt);
             if (File.Exists(imageFileName))
             {
-                Image image = Image.FromFile(imageFileName);
+                FileStream fileStream = new FileStream(imageFileName, FileMode.Open, FileAccess.Read);
+                
+                Image image = Image.FromStream(fileStream);
                 showImagePictureBox.Image = image;
                 
+                fileStream.Close();
+
                 DateTime frameUtcDateTime = 
                     new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(double.Parse(screenShotManager.CurrentFrameName.ToString()));
                 DateTime frameDateTime = TimeZone.CurrentTimeZone.ToLocalTime(frameUtcDateTime);
