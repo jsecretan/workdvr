@@ -324,7 +324,7 @@ namespace WorkDVR
         private void refreshTrackBar()
         {
             trackBar.Value = (int)(screenShotManager.Progress * (float)trackBar.Maximum + 0.5);
-            if (trackBar.Value == trackBar.Minimum || trackBar.Value == trackBar.Maximum)
+            if (screenShotManager.Progress == 0 || screenShotManager.Progress == 1)
             {
                 stopPlayback();
             }
