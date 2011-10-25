@@ -40,6 +40,9 @@ namespace WorkDVR
             options = new Options();
             captureManager = new CaptureManager();
             storeFolderManager = new StoreFolderManager();
+
+            // default to recording state when started
+            SwitchRecording();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
