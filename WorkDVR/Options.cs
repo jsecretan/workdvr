@@ -10,10 +10,12 @@ namespace WorkDVR
     {
         private const int heightWoLicenseBlock = 385;
         private const string autoRunRegKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        private MainForm mainForm;
 
-        public Options()
+        public Options(MainForm mainForm)
         {
             InitializeComponent();
+            this.mainForm = mainForm;
         }
 
         private void Options_Load(object sender, EventArgs e)
@@ -63,6 +65,13 @@ namespace WorkDVR
                 {
                     deleteOptionsComboBox.SelectedIndex = 0;
                 }
+
+                // keep recording state to restore on close
+                mainForm.keepRecordingStateAndStop();
+            }
+            else
+            {
+                mainForm.restoreRecordingState();
             }
         }
 

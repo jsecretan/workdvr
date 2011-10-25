@@ -16,6 +16,7 @@ namespace WorkDVR
         private StoreFolderManager storeFolderManager;
 
         private bool canShutdownWindow = false;
+        private bool keepRecordingState;
 
         // interval for images show
         private int baseInterval;
@@ -37,7 +38,7 @@ namespace WorkDVR
             replayTimer.Elapsed += new ElapsedEventHandler(ReplayFrames);
             replayTimer.Enabled = false;
 
-            options = new Options();
+            options = new Options(this);
             captureManager = new CaptureManager();
             storeFolderManager = new StoreFolderManager();
 
@@ -71,10 +72,7 @@ namespace WorkDVR
                 }
 
                 // stop capturing on show main form
-                if (captureManager.isRecording())
-                {
-                    SwitchRecording();
-                }
+                keepRecordingStateAndStop();
 
                 // stop removal of old files to conform to a storage quota
                 storeFolderManager.stopWatching();
@@ -97,6 +95,8 @@ namespace WorkDVR
             {
                 // start removal of old files to conform to a storage quota
                 storeFolderManager.startWatching();
+
+                restoreRecordingState();
             }
         }
 
@@ -187,6 +187,7 @@ namespace WorkDVR
 
         private void exitMenuItem_Click(object sender, EventArgs e)
         {
+            options.Dispose();
             canShutdownWindow = true;
             Application.Exit();
         }
@@ -348,10 +349,30 @@ namespace WorkDVR
             this.Show();
         }
 
+        // one left click on the tray icon brings up the context menu
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
             mi.Invoke(notifyIcon, null);
+        }
+
+        // keep recording state to restore on close
+        public void keepRecordingStateAndStop()
+        {
+            keepRecordingState = captureManager.isRecording();
+
+            if (keepRecordingState)
+            {
+                SwitchRecording();
+            }
+        }
+
+        public void restoreRecordingState()
+        {
+            if (keepRecordingState)
+            {
+                SwitchRecording();
+            }
         }
     }
 }
