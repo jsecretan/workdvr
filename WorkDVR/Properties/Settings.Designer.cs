@@ -37,7 +37,7 @@ namespace WorkDVR.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public int KeepMBRecodings {
             get {
                 return ((int)(this["KeepMBRecodings"]));
