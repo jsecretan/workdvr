@@ -161,5 +161,11 @@ namespace WorkDVR
             System.Diagnostics.Process.Start(buyLicenseLinkLabel.Text);
         }
 
+        private void Options_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
     }
 }

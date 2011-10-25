@@ -284,6 +284,7 @@
             this.Text = "WorkDVR Options";
             this.Load += new System.EventHandler(this.Options_Load);
             this.VisibleChanged += new System.EventHandler(this.Options_VisibleChanged);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Options_FormClosing);
             this.capturingGroupBox.ResumeLayout(false);
             this.capturingGroupBox.PerformLayout();
             this.storringGroupBox.ResumeLayout(false);
