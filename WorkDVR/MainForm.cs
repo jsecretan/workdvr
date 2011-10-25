@@ -195,6 +195,7 @@ namespace WorkDVR
         private void showPlaybackMenuItem_Click(object sender, EventArgs e)
         {
             this.Show();
+            this.BringToFront();
         }
 
         private void trackBar_Scroll(object sender, EventArgs e)
