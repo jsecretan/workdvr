@@ -180,11 +180,6 @@ namespace WorkDVR
             setImage();
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.Show();
-        }
-
         private void optionsMenuItem_Click(object sender, EventArgs e)
         {
             options.Show();
@@ -346,6 +341,17 @@ namespace WorkDVR
             {
                 Directory.CreateDirectory(Properties.Settings.Default.FramesStoreFolder);
             }
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            MethodInfo mi = typeof(NotifyIcon).GetMethod("ShowContextMenu", BindingFlags.Instance | BindingFlags.NonPublic);
+            mi.Invoke(notifyIcon, null);
         }
     }
 }
