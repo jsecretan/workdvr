@@ -50,13 +50,19 @@ namespace WorkDVR
                 captureFrameEveryTextBox.Text = Properties.Settings.Default.CaptureFrameInterval.ToString();
                 storeFolderTextBox.Text = Properties.Settings.Default.FramesStoreFolder;
                 keepMbRecodingsTextBox.Text = Properties.Settings.Default.KeepMBRecodings.ToString();
-                deleteStoredButton.Enabled = false;
+                deleteStoredButton.Enabled = true;
 
                 // reed run on startup checkbox from registry
                 RegistryKey regKeyAutorun = Registry.CurrentUser.OpenSubKey(autoRunRegKey);
                 string path = System.Windows.Forms.Application.ExecutablePath;
                 string fileName = Path.GetFileName(path);
                 runOnStartupCheckBox.Checked = regKeyAutorun.GetValue(fileName) != null;
+
+                // set drop doub default value
+                if (deleteOptionsComboBox.Items.Count > 0)
+                {
+                    deleteOptionsComboBox.SelectedIndex = 0;
+                }
             }
         }
 
