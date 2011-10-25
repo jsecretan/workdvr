@@ -89,6 +89,7 @@ namespace WorkDVR
                 else
                 {
                     EnabledControls(false);
+                    showImagePictureBox.Image = showImagePictureBox.BackgroundImage;
                 }
             }
             else
