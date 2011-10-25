@@ -81,7 +81,7 @@ namespace WorkDVR
 
                 // initialize screen shots show
                 screenShotManager = new ScreenShotManager();
-                trackBar.Maximum = screenShotManager.getFramesCount() - 1;
+                trackBar.Maximum = Properties.Settings.Default.PlaybackBarNotches;
 
                 if (screenShotManager.getFramesCount() > 0)
                 {
