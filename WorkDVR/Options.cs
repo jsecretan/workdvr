@@ -159,6 +159,10 @@ namespace WorkDVR
             {
                 removeLicenseBlock();
             }
+            else
+            {
+                MessageBox.Show("Incorrect license key", "License Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // open link in the default web browser

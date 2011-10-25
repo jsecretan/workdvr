@@ -34,6 +34,10 @@ namespace WorkDVR
             {
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show("Incorrect license key", "License Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
