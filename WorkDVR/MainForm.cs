@@ -287,7 +287,7 @@ namespace WorkDVR
 
         private void SwitchRecording()
         {
-            if (!captureManager.isRecording())
+            if (!captureManager.isRecording() && (LicenseManager.ProgramRegistered() || LicenseManager.TrialPeriod()))
             {
                 recordingMenuItem.Text = "Stop Recording";
                 captureManager.startRecording();
