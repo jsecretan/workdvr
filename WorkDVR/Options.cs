@@ -58,7 +58,7 @@ namespace WorkDVR
                 RegistryKey regKeyAutorun = Registry.CurrentUser.OpenSubKey(autoRunRegKey);
                 string path = System.Windows.Forms.Application.ExecutablePath;
                 string fileName = Path.GetFileName(path);
-                runOnStartupCheckBox.Checked = regKeyAutorun.GetValue(fileName) != null;
+                runOnStartupCheckBox.Checked = regKeyAutorun != null && regKeyAutorun.GetValue(fileName) != null;
 
                 // set drop doub default value
                 if (deleteOptionsComboBox.Items.Count > 0)
