@@ -49,7 +49,7 @@ namespace WorkDVR
         {
             get
             {
-                return (float)currentFrame / (float)(frames.Count - 1);
+                return (currentFrame == 0) ? 0 : (float)currentFrame / (float)(frames.Count - 1);
             }
             set
             {
