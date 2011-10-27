@@ -122,17 +122,26 @@ namespace WorkDVR
             if (File.Exists(imageFileName))
             {
                 FileStream fileStream = new FileStream(imageFileName, FileMode.Open, FileAccess.Read);
-                
-                Image image = Image.FromStream(fileStream);
-                showImagePictureBox.Image = image;
+
+                // Catch any exceptions reading poorly formed files
+                try
+                {
+                    Image image = Image.FromStream(fileStream);
+                    showImagePictureBox.Image = image;
+                    
+                    DateTime frameUtcDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(double.Parse(screenShotManager.CurrentFrameName.ToString()));
+                    DateTime frameDateTime = TimeZone.CurrentTimeZone.ToLocalTime(frameUtcDateTime);
+
+                    SetControlPropertyThreadSafe(frameTimeLabel, "Text", "Displaying frame from: " + frameDateTime);
+
+                }
+                catch (Exception e)
+                {
+                    //TODO: Perhaps we want to delete the offending file
+                }
                 
                 fileStream.Close();
 
-                DateTime frameUtcDateTime = 
-                    new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(double.Parse(screenShotManager.CurrentFrameName.ToString()));
-                DateTime frameDateTime = TimeZone.CurrentTimeZone.ToLocalTime(frameUtcDateTime);
-                
-                SetControlPropertyThreadSafe(frameTimeLabel, "Text", "Displaying frame from: " + frameDateTime);
             }
         }
 
