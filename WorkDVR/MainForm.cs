@@ -64,13 +64,6 @@ namespace WorkDVR
             // form is opened
             if (this.Visible)
             {
-                // check license info
-                if (!LicenseManager.ProgramRegistered() && !LicenseManager.TrialPeriod())
-                {
-                    License licForm = new License();
-                    licForm.ShowDialog();
-                }
-
                 // stop capturing on show main form
                 keepRecordingStateAndStop();
 
@@ -204,6 +197,19 @@ namespace WorkDVR
 
         private void showPlaybackMenuItem_Click(object sender, EventArgs e)
         {
+            // check license info
+            if (!LicenseManager.ProgramRegistered() && !LicenseManager.TrialPeriod())
+            {
+                License licForm = new License();
+                licForm.ShowDialog();
+
+                // continue only after registration
+                if (!LicenseManager.ProgramRegistered())
+                {
+                    return;
+                }
+            }
+
             this.Show();
             this.BringToFront();
         }
