@@ -381,7 +381,7 @@ namespace WorkDVR
         // Bubble pop-up that indicates how to work the program after startup
         private void showStartupInfoBubble()
         {
-            String startupMessage = "Single click for options menu, double click to bring up playback window";
+            String startupMessage = "Single click the icon for options menu, double click to bring up playback window";
             notifyIcon.ShowBalloonTip(1000, "WorkDVR", startupMessage, ToolTipIcon.None);
         }
 
