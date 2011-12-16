@@ -11,6 +11,9 @@
 ; Start after reboot
 !define PRODUCT_AUTORUN_REG "Software\Microsoft\Windows\CurrentVersion\Run"
 
+; Registration key
+!define REG_KEY "gWMHHe66j1J1V1NE0H1Y"
+
 ;Required .NET framework
 !define MIN_FRA_MAJOR "3"
 !define MIN_FRA_MINOR "5"
@@ -39,7 +42,9 @@ RequestExecutionLevel admin
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-;!insertmacro MUI_PAGE_LICENSE "Licence.txt"
+!insertmacro MUI_PAGE_LICENSE "Licence.txt"
+; Registration key page
+;Page Custom SerialPageShow SerialPageLeave
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -335,4 +340,33 @@ Function CheckFrameWork
   Pop $3
   Pop $2
   Pop $1
+FunctionEnd
+
+
+## Displays the serial dialog
+Function SerialPageShow
+
+ !insertmacro MUI_HEADER_TEXT "Enter Serial Code" "Enter the software serial code to continue."
+
+ PassDialog::Dialog Serial            \
+                    /HEADINGTEXT 'Please enter the registration code from the registration e-mail.  If you do not have a code, click next' \
+                    /CENTER             \
+                    /BOX     332 70 20 ''
+
+  Pop $R0 # success, back, cancel or error
+
+FunctionEnd
+
+
+## Validate serial numbers
+Function SerialPageLeave
+
+ ## Pop values from stack
+ Pop $R0
+
+ ## A bit of validation
+ StrCmp $R0 REG_KEY +3
+  MessageBox MB_OK|MB_ICONEXCLAMATION "Incorrect registration key.  Re-enter or press next to use the trial version."
+  Abort
+
 FunctionEnd
