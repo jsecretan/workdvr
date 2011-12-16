@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Timers;
 using System.IO;
 using System.Reflection;
+using Microsoft.Win32;
 
 namespace WorkDVR
 {
@@ -44,6 +45,22 @@ namespace WorkDVR
 
             // default to recording state when started
             SwitchRecording();
+
+            // If this is our first time starting up, display
+            // the message bubble
+            RegistryKey regKey = Registry.CurrentUser.CreateSubKey(LicenseManager.productRegkey);
+            object firstTime = (regKey != null) ? regKey.GetValue("FirstTime", true) : true;
+
+            if (Convert.ToBoolean(firstTime))
+            {
+                showStartupInfoBubble();
+
+                // Set first time to false so we don't show this again
+                if (regKey != null)
+                {
+                    regKey.SetValue("FirstTime", false);
+                }
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -359,6 +376,13 @@ namespace WorkDVR
             {
                 Directory.CreateDirectory(Properties.Settings.Default.FramesStoreFolder);
             }
+        }
+
+        // Bubble pop-up that indicates how to work the program after startup
+        private void showStartupInfoBubble()
+        {
+            String startupMessage = "Single click for options menu, double click to bring up playback window";
+            notifyIcon.ShowBalloonTip(1000, "WorkDVR", startupMessage, ToolTipIcon.None);
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
