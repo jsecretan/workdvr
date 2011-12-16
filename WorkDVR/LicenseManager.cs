@@ -10,10 +10,10 @@ namespace WorkDVR
     class LicenseManager
     {
         // Product License Key
-        private static string licenseKey = "123";
+        private static string licenseKey = "gWMHHe66j1J1V1NE0H1Y";
 
         // Product Registry Key
-        private static string productRegkey = @"Software\Microsoft\Windows\CurrentVersion\App Paths\WorkDVR.exe";
+        public static string productRegkey = @"Software\Microsoft\Windows\CurrentVersion\App Paths\WorkDVR.exe";
 
         // Product Version, is used for registry key value
         private static string instLicenseRegKey = "1.0";
